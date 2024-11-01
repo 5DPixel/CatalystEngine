@@ -1,0 +1,37 @@
+# Ignore build output directories for all projects
+**/bin/
+**/obj/
+
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore unnecessary build artifacts
+*.dll
+*.exe
+*.log
+*.pdb
+
+# Ignore project configuration and personal settings files
+*.csproj.user
+*.csproj.DotSettings
+
+# Resharper settings (if used)
+_ReSharper*/
+*.DotSettings.user
+
+# Mac and Linux specific files
+.DS_Store
+*.swp
+
+# Other unwanted files
+*.tmp
+*.cache
+*.pid
+*.seed
+*.log
