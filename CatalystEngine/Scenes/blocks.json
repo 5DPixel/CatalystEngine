@@ -1,0 +1,32 @@
+{
+    "objects": [
+        {
+            "mesh": "Block",
+            "position": [ 0, 0, 0 ],
+            "rotation": 45,
+            "scale": 1,
+            "texture": "texture"
+        },
+        {
+            "mesh": "Block",
+            "position": [ 0, 0, 1.2 ],
+            "rotation": 25,
+            "scale": 1,
+            "texture": "texture"
+        },
+        {
+            "mesh": "Block",
+            "position": [ 0.8, 0, 0 ],
+            "rotation": -30,
+            "scale": 2,
+            "texture": "stone"
+        },
+        {
+            "mesh": "Plane",
+            "position": [ 0, 0, 0 ],
+            "rotation": 90,
+            "scale": 5,
+            "texture": "wood"
+        }
+    ]
+}

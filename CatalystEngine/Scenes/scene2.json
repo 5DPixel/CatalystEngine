@@ -9,8 +9,8 @@
         },
         {
             "mesh": "Plane",
-            "position": [ 0, 0, -0.3 ],
-            "rotation": 90,
+            "position": [ 0, 1, -0.3 ],
+            "rotation": 0,
             "scale": 5,
             "texture": "wood"
         }

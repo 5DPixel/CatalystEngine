@@ -23,6 +23,12 @@ namespace CatalystEngine
         ShaderProgram program;
         Texture texture;
         Texture wood;
+        Scene scene;
+        string scenePath = "blocks";
+
+        private int frameCount;
+        private double elapsedTime;
+        private int fps;
 
         //Camera
         Camera camera;
@@ -67,6 +73,9 @@ namespace CatalystEngine
 
             GL.Enable(EnableCap.DepthTest);
 
+            scene = new Scene($"../../../Scenes/{scenePath}.json");
+            scene.Load();
+
             camera = new Camera(width, height, Vector3.Zero);
             CursorState = CursorState.Grabbed;
         }   
@@ -97,27 +106,24 @@ namespace CatalystEngine
             Matrix4 view = camera.GetViewMatrix();
             Matrix4 projection = camera.GetProjectionMatrix();
 
-
-            //model = Matrix4.CreateRotationY(yRotation);
-            //yRotation += 0.001f;
-
-            //Matrix4 translation = Matrix4.CreateTranslation(0f, 0f, -3f);
-
-            //model *= translation;
-
             int modelLocation = GL.GetUniformLocation(program.ID, "model");
             int viewLocation = GL.GetUniformLocation(program.ID, "view");
             int projectionLocation = GL.GetUniformLocation(program.ID, "projection");
 
-            //GL.UniformMatrix4(modelLocation, true, ref model);
-            //GL.UniformMatrix4(viewLocation, true, ref view);
-            //GL.UniformMatrix4(projectionLocation, true, ref projection);
+            //block.Render(modelLocation, viewLocation, projectionLocation, view, projection);
+            //plane.Render(modelLocation, viewLocation, projectionLocation, view, projection);
+            scene.RenderAll(modelLocation, viewLocation, projectionLocation, view, projection);
 
-            //GL.DrawElements(PrimitiveType.Triangles, block.indices.Count, DrawElementsType.UnsignedInt, 0);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            frameCount++;
+            elapsedTime += args.Time;
 
-            block.Render(modelLocation, viewLocation, projectionLocation, view, projection);
-            plane.Render(modelLocation, viewLocation, projectionLocation, view, projection);
+            if (elapsedTime >= 1.0) // Every second
+            {
+                fps = frameCount; // Capture the FPS
+                Console.Write($"\rFPS: {fps}"); // Print to console
+                frameCount = 0; // Reset count
+                elapsedTime = 0.0; // Reset elapsed time
+            }
 
             Context.SwapBuffers();
 
