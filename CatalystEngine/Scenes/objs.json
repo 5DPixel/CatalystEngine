@@ -1,0 +1,28 @@
+{
+    "objects": [
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/teapot.obj",
+            "position": [ 0, 0, 0 ],
+            "rotation": 0,
+            "scale": 1,
+            "texture": "stone"
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/suzanne.obj",
+            "position": [ 2, 0, 0 ],
+            "rotation": 0,
+            "scale": 1,
+            "texture": "texture"
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/plane.obj",
+            "position": [ 0, -0.2, 0 ],
+            "rotation": 0,
+            "scale": 5,
+            "texture": "wood"
+        }
+    ]
+}

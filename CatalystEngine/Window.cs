@@ -13,22 +13,18 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace CatalystEngine
 {
+    //Notes for adding models: you must triangulate and UV unwrap to add texture coordinates!
     internal sealed class Window : GameWindow
     {
-        Block block;
-        Plane plane;
-        VAO vao;
-        IBO ibo;
-        VBO vbo;
         ShaderProgram program;
-        Texture texture;
-        Texture wood;
         Scene scene;
-        string scenePath = "blocks";
+        string sceneName;
 
         private int frameCount;
         private double elapsedTime;
         private int fps;
+        private List<VAO> vaos = new List<VAO>();
+        private Vector3 _lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
         //Camera
         Camera camera;
@@ -36,11 +32,12 @@ namespace CatalystEngine
         //float yRotation = 0f;
 
         int width, height;
-        public Window(int width, int height) : base(GameWindowSettings.Default, NativeWindowSettings.Default)
+        public Window(int width, int height, string scenename) : base(GameWindowSettings.Default, NativeWindowSettings.Default)
         {
             this.CenterWindow(new Vector2i(width, height));
             this.width = width;
             this.height = height;
+            this.sceneName = scenename;
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -55,39 +52,30 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            texture = new Texture("Texture.png");
-            wood = new Texture("Wood.jpg");
 
-            block = new Block(new Vector3(0, 0 ,0), texture);
-            plane = new Plane(new Vector3(0, 0, -0.3f), wood, 90f, 5f); //Coordinate system is really messed up but whatever
-
-            vao = new VAO();
-            
-            vbo = new VBO(block.vertices);
-            vao.LinkToVAO(0, 3, vbo);
-            VBO uvVBO = new VBO(block.texCoords);
-            vao.LinkToVAO(1, 2, uvVBO);
-            ibo = new IBO(block.indices);
-
-            program = new ShaderProgram("Default.vert", "Default.frag");
-
-            GL.Enable(EnableCap.DepthTest);
-
-            scene = new Scene($"../../../Scenes/{scenePath}.json");
+            string scenePath = $"../../../Scenes/{sceneName}.json";
+            scene = new Scene(scenePath);
             scene.Load();
 
+            // Initialize shaders
+            program = new ShaderProgram("Default.vert", "Default.frag");
+
+
+            GL.Enable(EnableCap.DepthTest);
+            GL.DepthFunc(DepthFunction.Less);
+
+            // Initialize the camera
             camera = new Camera(width, height, Vector3.Zero);
             CursorState = CursorState.Grabbed;
-        }   
+        }
+
+
 
         protected override void OnUnload()
         {
             base.OnUnload();
 
-            vao.Delete();
-            vbo.Delete();
-            ibo.Delete();
-            texture.Delete();
+            //texture.Delete();
             program.Delete();
         }
 
@@ -96,12 +84,7 @@ namespace CatalystEngine
             GL.ClearColor(new Color4(0.6f, 0.3f, 1f, 1f));
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            program.Bind();
-            vao.Bind();
-            ibo.Bind();
-            texture.Bind();
-
-            //transformation matrices
+            // Set transformation matrices for your scene
             Matrix4 model = Matrix4.Identity;
             Matrix4 view = camera.GetViewMatrix();
             Matrix4 projection = camera.GetProjectionMatrix();
@@ -110,10 +93,25 @@ namespace CatalystEngine
             int viewLocation = GL.GetUniformLocation(program.ID, "view");
             int projectionLocation = GL.GetUniformLocation(program.ID, "projection");
 
-            //block.Render(modelLocation, viewLocation, projectionLocation, view, projection);
-            //plane.Render(modelLocation, viewLocation, projectionLocation, view, projection);
-            scene.RenderAll(modelLocation, viewLocation, projectionLocation, view, projection);
+            int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
+            GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
 
+
+            program.Bind();
+            // Render the scene
+            foreach (var gameObject in scene.gameObjects)
+            {
+                if (gameObject is Mesh mesh)
+                {
+                    mesh.vao.Bind();
+                    mesh.uvVBO.Bind();
+                    mesh.vbo.Bind();
+                    mesh.ibo.Bind();
+                    mesh.Render(modelLocation, viewLocation, projectionLocation, view, projection);
+                }
+            }
+
+            // FPS calculation and buffer swap
             frameCount++;
             elapsedTime += args.Time;
 
@@ -126,9 +124,10 @@ namespace CatalystEngine
             }
 
             Context.SwapBuffers();
-
             base.OnRenderFrame(args);
         }
+
+
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
