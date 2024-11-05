@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using System.IO.IsolatedStorage;
+using Assimp;
 
 namespace CatalystEngine.Models
 {
@@ -21,9 +21,7 @@ namespace CatalystEngine.Models
         public VBO vbo { get; private set; }
         public VBO uvVBO { get; private set; }
 
-        public List<Vector2> texCoords = new List<Vector2>
-        {
-        };
+        public List<Vector2> texCoords;
         public Mesh(Vector3 position, Texture texture, string filePath, float rotationAngle = 90f, float scale = 1f)
         {
             Position = position;
@@ -31,8 +29,7 @@ namespace CatalystEngine.Models
             Scale = scale;
             _Texture = texture;
             FilePath = filePath;
-            string objContent = System.IO.File.ReadAllText(filePath);
-            LoadFromString(objContent);
+            LoadModel(filePath);
             ibo = new IBO(indices);
             vao = new VAO();
             vbo = new VBO(vertices);
@@ -41,111 +38,44 @@ namespace CatalystEngine.Models
             vao.LinkToVAO(1, 2, uvVBO);
         }
 
-        public void LoadFromString(string objContent)
+        public void LoadModel(string path)
         {
             // Initialize lists for vertices, texture coordinates, and indices
             vertices = new List<Vector3>();
-            texCoords = new List<Vector2>();
-            indices = new List<uint>();
             normals = new List<Vector3>();
+            texCoords = new List<Vector2>();
+            indices = new List< uint>();
 
-            // Separate lines from the file content
-            var lines = objContent.Split('\n');
+            AssimpContext importer = new AssimpContext();
 
-            // Loop through each line
-            foreach (var line in lines)
+            Assimp.Scene scene = importer.ImportFile(path, PostProcessSteps.Triangulate | PostProcessSteps.FlipUVs);
+
+            foreach (var mesh in scene.Meshes)
             {
-                // Trim whitespace from the line
-                string trimmedLine = line.Trim();
-
-                // Parse vertex data
-                if (trimmedLine.StartsWith("v "))
+                // Get vertex data
+                foreach (var vertex in mesh.Vertices)
                 {
-                    // Parse vertex coordinates
-                    string[] parts = trimmedLine.Substring(2).Split(' ');
+                    vertices.Add(new Vector3(vertex.X, vertex.Y, vertex.Z));
+                }
 
-                    if (parts.Length >= 3 &&
-                        float.TryParse(parts[0], out float x) &&
-                        float.TryParse(parts[1], out float y) &&
-                        float.TryParse(parts[2], out float z))
+                // Get texture coordinates
+                foreach (var uv in mesh.TextureCoordinateChannels[0])
+                {
+                    texCoords.Add(new Vector2(uv.X, uv.Y));
+                }
+
+                // Get face indices
+                foreach (var face in mesh.Faces)
+                {
+                    for (int i = 0; i < face.IndexCount; i++)
                     {
-                        vertices.Add(new Vector3(x, y, z));
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to parse vertex: {line}");
+                        indices.Add((uint)face.Indices[i]);
                     }
                 }
-                // Parse texture coordinates
-                else if (trimmedLine.StartsWith("vt "))
+
+                foreach (var normal in mesh.Normals)
                 {
-                    // Parse texture coordinates
-                    string[] parts = trimmedLine.Substring(3).Split(' ');
-
-                    if (parts.Length >= 2 &&
-                        float.TryParse(parts[0], out float u) &&
-                        float.TryParse(parts[1], out float v))
-                    {
-                        texCoords.Add(new Vector2(u, v));
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to parse texture coordinate: {line}");
-                    }
-                }
-                else if (trimmedLine.StartsWith("vn "))
-                {
-                    // Parse texture coordinates
-                    string[] parts = trimmedLine.Substring(3).Split(' ');
-
-                    if (parts.Length >= 3 &&
-                        float.TryParse(parts[0], out float u) &&
-                        float.TryParse(parts[1], out float v) &&
-                        float.TryParse(parts[1], out float y))
-                    {
-                        normals.Add(new Vector3(u, v, y));
-                        //Console.WriteLine(string.Join(",", normals));
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to parse normals: {line}");
-                    }
-                }
-                // Parse face data
-                else if (trimmedLine.StartsWith("f "))
-                {
-                    // Parse face indices
-                    string[] faceParts = trimmedLine.Substring(2).Split(' ');
-
-                    if (faceParts.Length >= 3)
-                    {
-                        // For each vertex in the face, parse the vertex/texture coordinates
-                        for (int i = 0; i < faceParts.Length; i++)
-                        {
-                            string[] vertexData = faceParts[i].Split('/');
-                            if (vertexData.Length >= 1 && uint.TryParse(vertexData[0], out uint vertexIndex))
-                            {
-                                // Convert 1-based OBJ indices to 0-based indices
-                                indices.Add(vertexIndex - 1);
-
-                                // If texture coordinates exist, retrieve them
-                                if (vertexData.Length >= 2 && uint.TryParse(vertexData[1], out uint texCoordIndex))
-                                {
-                                    // Convert 1-based indices to 0-based indices for texture coordinates
-                                    // You can store or use these texCoordIndex as needed
-                                    // For example, you could store them in another list for later use
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Failed to parse face index: {faceParts[i]}");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to parse face: {line}");
-                    }
+                    normals.Add(new Vector3(normal.X, normal.Y, normal.Z));
                 }
             }
         }
@@ -172,7 +102,7 @@ namespace CatalystEngine.Models
             _Texture.Bind();
 
             // Draw the block
-            GL.DrawElements(PrimitiveType.Triangles, indices.Count, DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(OpenTK.Graphics.OpenGL4.PrimitiveType.Triangles, indices.Count, DrawElementsType.UnsignedInt, 0);
         }
 
     }

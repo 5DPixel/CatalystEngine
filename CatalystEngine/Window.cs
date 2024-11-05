@@ -23,8 +23,6 @@ namespace CatalystEngine
         private int frameCount;
         private double elapsedTime;
         private int fps;
-        private List<VAO> vaos = new List<VAO>();
-        private Vector3 _lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
         //Camera
         Camera camera;
@@ -93,8 +91,8 @@ namespace CatalystEngine
             int viewLocation = GL.GetUniformLocation(program.ID, "view");
             int projectionLocation = GL.GetUniformLocation(program.ID, "projection");
 
-            int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
-            GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
+            //int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
+            //GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
 
 
             program.Bind();

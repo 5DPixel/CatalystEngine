@@ -1,0 +1,20 @@
+{
+    "objects": [
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/tree.obj",
+            "position": [ 0, 0, 0 ],
+            "rotation": 0,
+            "scale": 2,
+            "texture": "tree"
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/plane.obj",
+            "position": [ 0, -0.1, 0 ],
+            "rotation": 0,
+            "scale": 5,
+            "texture": "texture"
+        }
+    ]
+}

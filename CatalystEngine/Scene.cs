@@ -16,7 +16,8 @@ namespace CatalystEngine
         {
             { "texture", new Texture("Texture.png") },
             { "wood", new Texture("Wood.jpg") },
-            { "stone", new Texture("Stone.jpg") }
+            { "stone", new Texture("Stone.jpg") },
+            { "tree", new Texture("Tree.png") }
         };
 
         // Dictionary for creating GameObject instances based on mesh names
