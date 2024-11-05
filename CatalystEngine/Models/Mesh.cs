@@ -20,6 +20,7 @@ namespace CatalystEngine.Models
         public VAO vao { get; private set; }
         public VBO vbo { get; private set; }
         public VBO uvVBO { get; private set; }
+        public VBO normalsVBO { get; private set; }
 
         public List<Vector2> texCoords;
         public Mesh(Vector3 position, Texture texture, string filePath, float rotationAngle = 90f, float scale = 1f)
@@ -33,9 +34,11 @@ namespace CatalystEngine.Models
             ibo = new IBO(indices);
             vao = new VAO();
             vbo = new VBO(vertices);
+            normalsVBO = new VBO(normals);
             uvVBO = new VBO(texCoords);
-            vao.LinkToVAO(0, 3, vbo); // Assuming mesh has 3 components per vertex (x, y, z)
+            vao.LinkToVAO(0, 3, vbo); // 3 components per vertex
             vao.LinkToVAO(1, 2, uvVBO);
+            vao.LinkToVAO(2, 3, normalsVBO);
         }
 
         public void LoadModel(string path)

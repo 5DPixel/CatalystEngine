@@ -23,6 +23,8 @@ namespace CatalystEngine
         private int frameCount;
         private double elapsedTime;
         private int fps;
+        private Vector3 _lightPos = new Vector3(0, 10, 0);
+        private Vector3 _lightColor = new Vector3(1, 1, 1);
 
         //Camera
         Camera camera;
@@ -91,8 +93,10 @@ namespace CatalystEngine
             int viewLocation = GL.GetUniformLocation(program.ID, "view");
             int projectionLocation = GL.GetUniformLocation(program.ID, "projection");
 
-            //int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
-            //GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
+            int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
+            int lightColorLocation = GL.GetUniformLocation(program.ID, "lightColor");
+            GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
+            GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
 
 
             program.Bind();
@@ -102,8 +106,9 @@ namespace CatalystEngine
                 if (gameObject is Mesh mesh)
                 {
                     mesh.vao.Bind();
-                    mesh.uvVBO.Bind();
                     mesh.vbo.Bind();
+                    mesh.uvVBO.Bind();
+                    mesh.normalsVBO.Bind();
                     mesh.ibo.Bind();
                     mesh.Render(modelLocation, viewLocation, projectionLocation, view, projection);
                 }
