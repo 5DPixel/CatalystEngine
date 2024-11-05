@@ -13,7 +13,6 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace CatalystEngine
 {
-    //Notes for adding models: you must triangulate and UV unwrap to add texture coordinates!
     internal sealed class Window : GameWindow
     {
         ShaderProgram program;
@@ -95,8 +94,11 @@ namespace CatalystEngine
 
             int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
             int lightColorLocation = GL.GetUniformLocation(program.ID, "lightColor");
+            int viewPosLocation = GL.GetUniformLocation(program.ID, "viewPos");
+
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
+            GL.Uniform3(viewPosLocation, camera.position.X, camera.position.Y, camera.position.Z);
 
 
             program.Bind();
