@@ -20,7 +20,7 @@ namespace CatalystEngine
             { "wood", new Texture("Wood.jpg") },
             { "stone", new Texture("Stone.jpg") },
             { "tree", new Texture("Tree.png") },
-            { "crate", new Texture("crate.png") }
+            { "crate", new Texture("crate.png") },
         };
 
         public Scene(string filePath)

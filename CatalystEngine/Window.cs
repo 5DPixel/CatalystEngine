@@ -16,6 +16,8 @@ namespace CatalystEngine
     internal sealed class Window : GameWindow
     {
         ShaderProgram program;
+        ShaderProgram skyboxProgram;
+        Mesh skybox;
         Scene scene;
         string sceneName;
 
@@ -51,17 +53,19 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
+            skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
+
 
             string scenePath = $"../../../Scenes/{sceneName}.json";
             scene = new Scene(scenePath);
             scene.Load();
 
             // Initialize shaders
+            skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
             program = new ShaderProgram("Default.vert", "Default.frag");
 
             _lightPos = scene.lightPos;
             _lightColor = scene.lightColor;
-            Console.WriteLine(string.Join(",", _lightPos));
 
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);
@@ -95,6 +99,10 @@ namespace CatalystEngine
             int viewLocation = GL.GetUniformLocation(program.ID, "view");
             int projectionLocation = GL.GetUniformLocation(program.ID, "projection");
 
+            int skyboxModelLocation = GL.GetUniformLocation(skyboxProgram.ID, "model");
+            int skyboxViewLocation = GL.GetUniformLocation(skyboxProgram.ID, "view");
+            int skyboxProjectionLocation = GL.GetUniformLocation(skyboxProgram.ID, "projection");
+
             int lightPosLocation = GL.GetUniformLocation(program.ID, "lightPos");
             int lightColorLocation = GL.GetUniformLocation(program.ID, "lightColor");
             int viewPosLocation = GL.GetUniformLocation(program.ID, "viewPos");
@@ -102,6 +110,27 @@ namespace CatalystEngine
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
             GL.Uniform3(viewPosLocation, camera.position.X, camera.position.Y, camera.position.Z);
+
+            skyboxProgram.Bind();
+
+
+            Matrix4 skyboxView = camera.GetViewMatrix();
+            // Remove translation component for skybox view
+            skyboxView.M41 = 0.0f;
+            skyboxView.M42 = 0.0f;
+            skyboxView.M43 = 0.0f;
+
+            // Set uniforms specific to skybox shader
+            GL.UniformMatrix4(skyboxModelLocation, false, ref model);
+            GL.UniformMatrix4(skyboxViewLocation, false, ref skyboxView);
+            GL.UniformMatrix4(skyboxProjectionLocation, false, ref projection);
+
+            // Disable depth testing for the skybox render
+            GL.Disable(EnableCap.DepthTest);
+            skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
+            GL.Enable(EnableCap.DepthTest); // Re-enable depth testing for main scene
+   
+
 
 
             program.Bind();
