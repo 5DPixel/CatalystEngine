@@ -22,8 +22,8 @@ namespace CatalystEngine
         private int frameCount;
         private double elapsedTime;
         private int fps;
-        private Vector3 _lightPos = new Vector3(0, 10, 0);
-        private Vector3 _lightColor = new Vector3(1, 1, 1);
+        private Vector3 _lightPos;
+        private Vector3 _lightColor;
 
         //Camera
         Camera camera;
@@ -59,6 +59,9 @@ namespace CatalystEngine
             // Initialize shaders
             program = new ShaderProgram("Default.vert", "Default.frag");
 
+            _lightPos = scene.lightPos;
+            _lightColor = scene.lightColor;
+            Console.WriteLine(string.Join(",", _lightPos));
 
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);

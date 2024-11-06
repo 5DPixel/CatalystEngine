@@ -10,6 +10,8 @@ namespace CatalystEngine
     internal class Scene
     {
         public string filePath;
+        public Vector3 lightPos { get; set; }
+        public Vector3 lightColor { get; set; }
         //public List<GameObject> gameObjects = new List<GameObject>();
         // Predefined dictionary of textures
         private Dictionary<string, Texture> textures = new Dictionary<string, Texture>
@@ -17,10 +19,9 @@ namespace CatalystEngine
             { "texture", new Texture("Texture.png") },
             { "wood", new Texture("Wood.jpg") },
             { "stone", new Texture("Stone.jpg") },
-            { "tree", new Texture("Tree.png") }
+            { "tree", new Texture("Tree.png") },
+            { "crate", new Texture("crate.png") }
         };
-
-        // Dictionary for creating GameObject instances based on mesh names
 
         public Scene(string filePath)
         {
@@ -39,6 +40,7 @@ namespace CatalystEngine
             foreach (var obj in sceneData.objects)
             {
                 string mesh = obj.mesh;
+                string light = obj.lightType;
                 float[] positionArr = obj.position.ToObject<float[]>();
                 float rotation = obj.rotation;
                 float scale = obj.scale;
@@ -60,6 +62,22 @@ namespace CatalystEngine
                     {
                         Console.WriteLine("File property does not exist.");
                     }
+                }
+            }
+
+            foreach(var light in sceneData.lights)
+            {
+                string lightType = light.type;
+
+                if(lightType == "default")
+                {
+                    float[] lightPosArray = light.position.ToObject<float[]>();
+                    float[] lightColorArray = light.color.ToObject<float[]>();
+
+                    lightPos = new Vector3(lightPosArray[0], lightPosArray[1], lightPosArray[2]);
+                    lightColor = new Vector3(lightColorArray[0], lightColorArray[1], lightColorArray[2]);
+
+                    Console.WriteLine($"lightPos: {lightPos}, lightColor: {lightColor}");
                 }
             }
         }

@@ -15,6 +15,22 @@
             "rotation": 0,
             "scale": 5,
             "texture": "texture"
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/cube.obj",
+            "position": [ 1, 6, 0 ],
+            "rotation": 0,
+            "scale": 1,
+            "texture": "texture"
+        }
+    ],
+
+    "lights": [
+        {
+            "type": "default",
+            "position": [ 1, 6, 0 ],
+            "color": [ 1, 1, 1 ]
         }
     ]
 }

@@ -16,5 +16,21 @@
             "scale": 5,
             "texture": "wood"
         },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/cube.obj",
+            "position": [ 1, 4, 0 ],
+            "rotation": 0,
+            "scale": 1,
+            "texture": "texture"
+        }
+    ],
+
+    "lights": [
+        {
+            "type": "default",
+            "position": [ 1, 4, 0 ],
+            "color": [ 1, 1, 1 ]
+        }
     ]
 }
