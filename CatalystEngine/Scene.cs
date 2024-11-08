@@ -20,7 +20,8 @@ namespace CatalystEngine
             { "wood", new Texture("Wood.jpg") },
             { "stone", new Texture("Stone.jpg") },
             { "tree", new Texture("Tree.png") },
-            { "crate", new Texture("crate.png") },
+            { "brick", new Texture("brick.jpg") },
+            { "grass", new Texture("grass.png") },
         };
 
         public Scene(string filePath)
@@ -76,8 +77,6 @@ namespace CatalystEngine
 
                     lightPos = new Vector3(lightPosArray[0], lightPosArray[1], lightPosArray[2]);
                     lightColor = new Vector3(lightColorArray[0], lightColorArray[1], lightColorArray[2]);
-
-                    Console.WriteLine($"lightPos: {lightPos}, lightColor: {lightColor}");
                 }
             }
         }

@@ -18,11 +18,11 @@
         },
         {
             "mesh": "obj",
-            "file": "../../../OBJs/plane.obj",
+            "file": "../../../OBJs/brickplane.obj",
             "position": [ 0, -0.2, 0 ],
             "rotation": 0,
             "scale": 5,
-            "texture": "wood"
+            "texture": "brick"
         },
         {
             "mesh": "obj",

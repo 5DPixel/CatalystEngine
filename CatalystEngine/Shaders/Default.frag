@@ -15,18 +15,25 @@ void main()
 {
 	float specularStrength = 0.5;
 	float ambientStrength = 0.5;
+	float shininess = 32;
+	float distance = length(lightPos - FragPos);
+	float attenuation = 1.0 / distance;  
 
 	vec3 ambient = ambientStrength * lightColor;
 	vec3 norm = normalize(Normal);
 	vec3 lightDir = normalize(lightPos - FragPos);
 	vec3 viewDir = normalize(viewPos - FragPos);
+	vec3 halfwayDir = normalize(lightDir + viewDir);
 	vec3 reflectDir = reflect(-lightDir, norm);
 
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * lightColor;
 
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+	float spec = pow(max(dot(viewDir, halfwayDir), 0.0), shininess);
 	vec3 specular = specularStrength * spec * lightColor;
+
+	diffuse *= attenuation;
+	specular *= attenuation;
 
 	vec3 texColor = texture(texture0, texCoord).rgb;
 

@@ -17,6 +17,9 @@ namespace CatalystEngine
     {
         ShaderProgram program;
         ShaderProgram skyboxProgram;
+        ShaderProgram depthProgram;
+        FBO depthMapFBO;
+        DepthTexture depth;
         Mesh skybox;
         Scene scene;
         string sceneName;
@@ -53,6 +56,10 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
+            depthMapFBO = new FBO(1024, 1024);
+            depth = new DepthTexture();
+            depthMapFBO.AttachDepthTexture(depth.ID);
+
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
 
 
@@ -63,6 +70,7 @@ namespace CatalystEngine
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
             program = new ShaderProgram("Default.vert", "Default.frag");
+            depthProgram = new ShaderProgram("simpleDepthShader.vert", "simpleDepthShader.frag");
 
             _lightPos = scene.lightPos;
             _lightColor = scene.lightColor;
@@ -125,13 +133,17 @@ namespace CatalystEngine
             GL.UniformMatrix4(skyboxViewLocation, false, ref skyboxView);
             GL.UniformMatrix4(skyboxProjectionLocation, false, ref projection);
 
+            GL.Enable(EnableCap.FramebufferSrgb);
+
+
             // Disable depth testing for the skybox render
             GL.Disable(EnableCap.DepthTest);
             skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
             GL.Enable(EnableCap.DepthTest); // Re-enable depth testing for main scene
-   
 
+            depthMapFBO.Bind();
 
+            depthMapFBO.AttachDepthTexture(depth.ID);
 
             program.Bind();
             // Render the scene
