@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,13 +56,14 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            rb = new Rigidbody(1f, -1f);
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
             
 
             string scenePath = $"../../../Scenes/{sceneName}.json";
             scene = new Scene(scenePath);
             scene.Load();
+
+            rb = new Rigidbody(1f, scene.gravity);
 
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
@@ -178,7 +180,11 @@ namespace CatalystEngine
             {
                 if (gameObject is Mesh mesh)
                 {
-                    mesh.Position = rb.ApplyPhysics((float)args.Time);
+                    if(mesh.physicsType == "rigidbody")
+                    {
+                        mesh.Position = rb.ApplyPhysics((float)args.Time);
+                    }
+                    //Console.WriteLine($"mesh: {mesh}, physics: {mesh.physicsType}");
                 }
             }
 

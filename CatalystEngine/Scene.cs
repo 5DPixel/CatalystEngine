@@ -4,16 +4,23 @@ using Newtonsoft.Json;
 using CatalystEngine.Graphics;
 using OpenTK.Mathematics;
 using CatalystEngine.Models;
+using CatalystEngine.Components;
+using System.Collections;
 
 namespace CatalystEngine
 {
     internal class Scene
     {
         public string filePath;
+        GameObject gameObject;
+        public float gravity, mass;
         public Vector3 lightPos { get; set; }
         public Vector3 lightColor { get; set; }
-        //public List<GameObject> gameObjects = new List<GameObject>();
-        // Predefined dictionary of textures
+
+        public List<GameObject> gameObjects = new List<GameObject>();
+        public Dictionary<GameObject, string> rigidbodies = new Dictionary<GameObject, string> { };
+
+
         private Dictionary<string, Texture> textures = new Dictionary<string, Texture>
         {
             { "texture", new Texture("Texture.png") },
@@ -37,6 +44,11 @@ namespace CatalystEngine
             // Parse the JSON into a dynamic object
             dynamic sceneData = JsonConvert.DeserializeObject(json);
 
+            foreach (var setting in sceneData.settings)
+            {
+                gravity = setting.gravity.ToObject<float>();
+            }
+
             // Access the "objects" array and create GameObject instances
             foreach (var obj in sceneData.objects)
             {
@@ -52,25 +64,30 @@ namespace CatalystEngine
 
                 if (mesh == "obj")
                 {
-                    string? filePath = obj.file?.ToString();
+                    string filePath = obj.file.ToString();
+                    string physics = obj.physics.ToString();
+                    mass = obj.mass.ToObject<float>();
+
                     if (filePath != null)
                     {
                         // Create the Mesh object using the filePath
-                        GameObject gameObject = new Mesh(position, texture, filePath, rotation, scale);
+                        gameObject = new Mesh(position, texture, filePath, rotation, scale);
                         gameObjects.Add(gameObject);
                     }
                     else
                     {
                         Console.WriteLine("File property does not exist.");
                     }
+                    rigidbodies.Add(gameObject, physics);
+                    gameObject.physicsType = physics;
                 }
             }
 
-            foreach(var light in sceneData.lights)
+            foreach (var light in sceneData.lights)
             {
                 string lightType = light.type;
 
-                if(lightType == "default")
+                if (lightType == "default")
                 {
                     float[] lightPosArray = light.position.ToObject<float[]>();
                     float[] lightColorArray = light.color.ToObject<float[]>();
@@ -80,10 +97,6 @@ namespace CatalystEngine
                 }
             }
         }
-
-
-        // Assuming a List<GameObject> to store the objects to be rendered
-        public List<GameObject> gameObjects = new List<GameObject>();
 
         // Example RenderAll method
         public void RenderAll(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection)

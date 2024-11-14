@@ -1,4 +1,5 @@
-﻿using CatalystEngine.Graphics;
+﻿using CatalystEngine.Components;
+using CatalystEngine.Graphics;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace CatalystEngine.Models
         public float Rotation { get; set; }
         public float Scale { get; set; }
         public Texture _Texture { get; set; }
+        public String physicsType { get; set; }
 
         protected GameObject()
         {

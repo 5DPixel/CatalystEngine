@@ -10,7 +10,7 @@ namespace CatalystEngine.Components
         private float mass { get; set; }
         public Vector3 velocity = Vector3.Zero;
 
-        public Rigidbody(float mass, float gravity = -9.81f)
+        public Rigidbody(float mass, float gravity = -1f)
         {
             this.gravity = gravity;
             this.mass = mass;
