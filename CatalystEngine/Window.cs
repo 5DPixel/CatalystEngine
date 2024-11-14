@@ -180,11 +180,11 @@ namespace CatalystEngine
             {
                 if (gameObject is Mesh mesh)
                 {
-                    if(mesh.physicsType == "rigidbody")
+                    if (mesh.physicsType == "rigidbody")
                     {
+                        rb.position = mesh.Position;
                         mesh.Position = rb.ApplyPhysics((float)args.Time);
                     }
-                    //Console.WriteLine($"mesh: {mesh}, physics: {mesh.physicsType}");
                 }
             }
 
