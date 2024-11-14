@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using Assimp;
+using CatalystEngine.Components;
 
 namespace CatalystEngine.Models
 {
@@ -21,6 +22,7 @@ namespace CatalystEngine.Models
         public VBO vbo { get; private set; }
         public VBO uvVBO { get; private set; }
         public VBO normalsVBO { get; private set; }
+        //private Rigidbody body;
 
         public List<Vector2> texCoords;
         public Mesh(Vector3 position, Texture texture, string filePath, float rotationAngle = 90f, float scale = 1f)
@@ -31,11 +33,13 @@ namespace CatalystEngine.Models
             _Texture = texture;
             FilePath = filePath;
             LoadModel(filePath);
+
             ibo = new IBO(indices);
             vao = new VAO();
             vbo = new VBO(vertices);
             normalsVBO = new VBO(normals);
             uvVBO = new VBO(texCoords);
+
             vao.LinkToVAO(0, 3, vbo); // 3 components per vertex
             vao.LinkToVAO(1, 2, uvVBO);
             vao.LinkToVAO(2, 3, normalsVBO);

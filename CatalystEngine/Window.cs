@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatalystEngine.Components;
 using CatalystEngine.Graphics;
 using CatalystEngine.Models;
 using OpenTK.Graphics.OpenGL4;
@@ -17,9 +18,6 @@ namespace CatalystEngine
     {
         ShaderProgram program;
         ShaderProgram skyboxProgram;
-        ShaderProgram depthProgram;
-        FBO depthMapFBO;
-        DepthTexture depth;
         Mesh skybox;
         Scene scene;
         string sceneName;
@@ -29,6 +27,7 @@ namespace CatalystEngine
         private int fps;
         private Vector3 _lightPos;
         private Vector3 _lightColor;
+        private Rigidbody rb;
 
         //Camera
         Camera camera;
@@ -56,12 +55,9 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            depthMapFBO = new FBO(1024, 1024);
-            depth = new DepthTexture();
-            depthMapFBO.AttachDepthTexture(depth.ID);
-
+            rb = new Rigidbody(1f, -1f);
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
-
+            
 
             string scenePath = $"../../../Scenes/{sceneName}.json";
             scene = new Scene(scenePath);
@@ -70,7 +66,6 @@ namespace CatalystEngine
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
             program = new ShaderProgram("Default.vert", "Default.frag");
-            depthProgram = new ShaderProgram("simpleDepthShader.vert", "simpleDepthShader.frag");
 
             _lightPos = scene.lightPos;
             _lightColor = scene.lightColor;
@@ -141,10 +136,6 @@ namespace CatalystEngine
             skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
             GL.Enable(EnableCap.DepthTest); // Re-enable depth testing for main scene
 
-            depthMapFBO.Bind();
-
-            depthMapFBO.AttachDepthTexture(depth.ID);
-
             program.Bind();
             // Render the scene
             foreach (var gameObject in scene.gameObjects)
@@ -182,6 +173,14 @@ namespace CatalystEngine
         {
             MouseState mouse = MouseState;
             KeyboardState input = KeyboardState;
+
+            foreach (var gameObject in scene.gameObjects)
+            {
+                if (gameObject is Mesh mesh)
+                {
+                    mesh.Position = rb.ApplyPhysics((float)args.Time);
+                }
+            }
 
             base.OnUpdateFrame(args);
 

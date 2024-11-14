@@ -14,7 +14,7 @@ namespace CatalystEngine.Graphics
         public IBO(List<uint> data)
         {
             ID = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ID);
+            this.Bind();
             GL.BufferData(BufferTarget.ElementArrayBuffer, data.Count * sizeof(uint), data.ToArray(), BufferUsageHint.StaticDraw);
         }
         public void Bind()
