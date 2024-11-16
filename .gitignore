@@ -36,4 +36,4 @@ _ReSharper*/
 *.seed
 *.log
 
-CatalystEngine/Properties/
+Properties/
