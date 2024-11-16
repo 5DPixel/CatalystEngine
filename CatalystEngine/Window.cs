@@ -112,9 +112,13 @@ namespace CatalystEngine
             int lightColorLocation = GL.GetUniformLocation(program.ID, "lightColor");
             int viewPosLocation = GL.GetUniformLocation(program.ID, "viewPos");
 
+            int ambientStrengthLocation = GL.GetUniformLocation(program.ID, "ambientStrength");
+
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
             GL.Uniform3(viewPosLocation, camera.position.X, camera.position.Y, camera.position.Z);
+
+            GL.Uniform1(ambientStrengthLocation, scene.ambientStrength);
 
             skyboxProgram.Bind();
 
@@ -184,6 +188,7 @@ namespace CatalystEngine
                     {
                         rb.position = mesh.Position;
                         mesh.Position = rb.ApplyPhysics((float)args.Time);
+                        rb.rigidbodyPoints = mesh.vertices;
                     }
                 }
             }

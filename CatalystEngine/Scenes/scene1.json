@@ -6,7 +6,9 @@
             "position": [ 0, 0, 0 ],
             "rotation": 0,
             "scale": 2,
-            "texture": "texture"
+            "texture": "texture",
+            "mass": 1,
+            "physics": 0
         },
         {
             "mesh": "obj",
@@ -14,7 +16,9 @@
             "position": [ 0, -0.3, 0 ],
             "rotation": 0,
             "scale": 5,
-            "texture": "wood"
+            "texture": "wood",
+            "mass": 1,
+            "physics": 0
         },
         {
             "mesh": "obj",
@@ -22,7 +26,9 @@
             "position": [ 1, 4, 0 ],
             "rotation": 0,
             "scale": 1,
-            "texture": "texture"
+            "texture": "texture",
+            "mass": 1,
+            "physics": 0
         }
     ],
 
@@ -31,6 +37,13 @@
             "type": "default",
             "position": [ 1, 4, 0 ],
             "color": [ 1, 1, 1 ]
+        }
+    ],
+
+    "settings": [
+        {
+            "gravity": -9.81, //Default, because Earth's gravity is -9.81m/s^2
+            "ambient": 0.5
         }
     ]
 }

@@ -12,8 +12,10 @@ namespace CatalystEngine
     internal class Scene
     {
         public string filePath;
+        public float ambientStrength;
         GameObject gameObject;
-        public float gravity, mass;
+        public float gravity;
+        public float mass;
         public Vector3 lightPos { get; set; }
         public Vector3 lightColor { get; set; }
 
@@ -47,6 +49,7 @@ namespace CatalystEngine
             foreach (var setting in sceneData.settings)
             {
                 gravity = setting.gravity.ToObject<float>();
+                ambientStrength = setting.ambient.ToObject<float>();
             }
 
             // Access the "objects" array and create GameObject instances

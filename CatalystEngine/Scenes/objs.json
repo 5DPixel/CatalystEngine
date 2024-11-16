@@ -18,7 +18,7 @@
             "scale": 1,
             "texture": "texture",
             "physics": 0,
-            "mass": 1,
+            "mass": 1
         },
         {
             "mesh": "obj",
@@ -52,7 +52,8 @@
 
     "settings": [
         {
-            "gravity":  -9.81 //Default, because Earth's gravity is -9.81m/s^2
+            "gravity": -9.81, //Default, because Earth's gravity is -9.81m/s^2
+            "ambient": 0.5
         }
     ]
 }

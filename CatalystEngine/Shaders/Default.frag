@@ -11,10 +11,11 @@ uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 
+uniform float ambientStrength;
+
 void main()
 {
 	float specularStrength = 0.5;
-	float ambientStrength = 0.5;
 	float shininess = 32;
 	float distance = length(lightPos - FragPos);
 	float attenuation = 1.0 / distance;  

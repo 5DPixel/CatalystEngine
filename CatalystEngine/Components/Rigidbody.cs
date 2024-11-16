@@ -6,7 +6,9 @@ namespace CatalystEngine.Components
     internal class Rigidbody
     {
         private float gravity { get; set; }
+        public List<Vector3> rigidbodyPoints = new List<Vector3>();
         public Vector3 position = Vector3.Zero;
+        public bool grounded = false;
         private float mass { get; set; }
         public Vector3 velocity = Vector3.Zero;
 
@@ -27,6 +29,11 @@ namespace CatalystEngine.Components
             Vector3 acceleration = force / mass;
             velocity += acceleration * deltaTime;
             position += velocity * deltaTime;
+
+            if (grounded)
+            {
+                velocity = Vector3.Zero;
+            }
 
             return position;
         }
