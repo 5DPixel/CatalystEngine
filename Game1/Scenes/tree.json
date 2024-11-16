@@ -1,0 +1,49 @@
+{
+    "objects": [
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/tree.obj",
+            "position": [ 0, 0, 0 ],
+            "rotation": 0,
+            "scale": 2,
+            "texture": "tree",
+            "mass": 0,
+            "physics": 0
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/plane.obj",
+            "position": [ 0, -0.1, 0 ],
+            "rotation": 0,
+            "scale": 5,
+            "texture": "texture",
+            "mass": 0,
+            "physics": 0
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/cube.obj",
+            "position": [ 1, 6, 0 ],
+            "rotation": 0,
+            "scale": 1,
+            "texture": "texture",
+            "mass": 0,
+            "physics": 0
+        }
+    ],
+
+    "lights": [
+        {
+            "type": "default",
+            "position": [ 1, 6, 0 ],
+            "color": [ 1, 1, 1 ]
+        }
+    ],
+
+    "settings": [
+        {
+            "gravity": -9.81,//Default, because Earth's gravity is -9.81m/s^2
+            "ambient": 0.5
+        }
+    ]
+}

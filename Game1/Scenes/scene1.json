@@ -2,36 +2,23 @@
     "objects": [
         {
             "mesh": "obj",
-            "file": "../../../OBJs/teapot.obj",
-            "position": [ 0, 5, 0 ],
+            "file": "../../../OBJs/diamond.obj",
+            "position": [ 0, 0, 0 ],
             "rotation": 0,
-            "scale": 1,
-            "texture": "stone",
-            "physics": "rigidbody",
-            "mass": 1,
-            "name": "teapot"
-        },
-        {
-            "mesh": "obj",
-            "file": "../../../OBJs/suzanne.obj",
-            "position": [ 2, 0, 0 ],
-            "rotation": 0,
-            "scale": 1,
+            "scale": 2,
             "texture": "texture",
-            "physics": 0,
             "mass": 1,
-            "name": "monkey"
+            "physics": 0
         },
         {
             "mesh": "obj",
-            "file": "../../../OBJs/brickplane.obj",
-            "position": [ 0, -0.2, 0 ],
+            "file": "../../../OBJs/plane.obj",
+            "position": [ 0, -0.3, 0 ],
             "rotation": 0,
             "scale": 5,
-            "texture": "brick",
-            "physics": "passive",
+            "texture": "wood",
             "mass": 1,
-            "name": "ground"
+            "physics": 0
         },
         {
             "mesh": "obj",
@@ -40,9 +27,8 @@
             "rotation": 0,
             "scale": 1,
             "texture": "texture",
-            "physics": 0,
             "mass": 1,
-            "name": "lightVisualiser"
+            "physics": 0
         }
     ],
 

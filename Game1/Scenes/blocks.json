@@ -2,54 +2,60 @@
     "objects": [
         {
             "mesh": "obj",
-            "file": "../../../OBJs/teapot.obj",
-            "position": [ 0, 5, 0 ],
-            "rotation": 0,
-            "scale": 1,
-            "texture": "stone",
-            "physics": "rigidbody",
-            "mass": 1,
-            "name": "teapot"
-        },
-        {
-            "mesh": "obj",
-            "file": "../../../OBJs/suzanne.obj",
-            "position": [ 2, 0, 0 ],
-            "rotation": 0,
+            "file": "../../../OBJs/cube.obj",
+            "position": [ 0, 0, 0 ],
+            "rotation": 45,
             "scale": 1,
             "texture": "texture",
-            "physics": 0,
             "mass": 1,
-            "name": "monkey"
-        },
-        {
-            "mesh": "obj",
-            "file": "../../../OBJs/brickplane.obj",
-            "position": [ 0, -0.2, 0 ],
-            "rotation": 0,
-            "scale": 5,
-            "texture": "brick",
-            "physics": "passive",
-            "mass": 1,
-            "name": "ground"
+            "physics": 0
         },
         {
             "mesh": "obj",
             "file": "../../../OBJs/cube.obj",
-            "position": [ 1, 4, 0 ],
+            "position": [ 0, 0, 4 ],
+            "rotation": 25,
+            "scale": 1,
+            "texture": "texture",
+            "mass": 1,
+            "physics": 0
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/cube.obj",
+            "position": [ 2, 0, 0 ],
+            "rotation": -30,
+            "scale": 2,
+            "texture": "stone",
+            "mass": 1,
+            "physics": 0
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/plane.obj",
+            "position": [ 0, -1, 0 ],
+            "rotation": 0,
+            "scale": 5,
+            "texture": "wood",
+            "mass": 1,
+            "physics": 0
+        },
+        {
+            "mesh": "obj",
+            "file": "../../../OBJs/cube.obj",
+            "position": [ -3, 6, 0 ],
             "rotation": 0,
             "scale": 1,
             "texture": "texture",
-            "physics": 0,
             "mass": 1,
-            "name": "lightVisualiser"
+            "physics": 0
         }
     ],
 
     "lights": [
         {
             "type": "default",
-            "position": [ 1, 4, 0 ],
+            "position": [ -3, 6, 0 ],
             "color": [ 1, 1, 1 ]
         }
     ],

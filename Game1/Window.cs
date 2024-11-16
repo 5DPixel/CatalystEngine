@@ -1,14 +1,13 @@
-﻿using CatalystEngine.Components;
-using CatalystEngine.Debug;
-using CatalystEngine.Graphics;
-using CatalystEngine.Models;
+﻿using Game1.Components;
+using Game1.Graphics;
+using Game1.Models;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace CatalystEngine
+namespace Game1
 {
     internal sealed class Window : GameWindow
     {
@@ -24,8 +23,6 @@ namespace CatalystEngine
         private Vector3 _lightPos;
         private Vector3 _lightColor;
         private Rigidbody rb;
-
-        private DebugSettings.Settings settings;
 
         //Camera
         Camera camera;
@@ -53,11 +50,8 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            settings = DebugSettings.LoadSettings();
-            Console.WriteLine(settings.LogGameObjectIDs);
-
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
-            
+
 
             string scenePath = $"../../../Scenes/{sceneName}.json";
             scene = new Scene(scenePath);

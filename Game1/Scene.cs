@@ -1,11 +1,11 @@
-﻿using CatalystEngine.Graphics;
-using CatalystEngine.Models;
+﻿using Game1.Graphics;
+using Game1.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenTK.Mathematics;
 using System.Text.Encodings.Web;
 
-namespace CatalystEngine
+namespace Game1
 {
     internal class Scene
     {
@@ -36,27 +36,6 @@ namespace CatalystEngine
         public Scene(string filePath)
         {
             this.filePath = filePath;
-        }
-
-        public void Destroy(int ID)
-        {
-            if(ID >= 0 && ID < gameObjects.Count)
-            {
-                GameObject item = gameObjects[ID];
-
-                if(item != null)
-                {
-                    gameObjects.Remove(item);
-                } else
-                {
-                    Console.WriteLine($"Item at index {ID} is null.");
-                }
-            }
-
-            else
-            {
-                Console.WriteLine($"Item at index {ID} is out of range.");
-            }
         }
 
         public void Load()
