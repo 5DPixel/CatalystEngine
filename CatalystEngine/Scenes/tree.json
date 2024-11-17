@@ -8,7 +8,8 @@
             "scale": 2,
             "texture": "tree",
             "mass": 0,
-            "physics": 0
+            "physics": 0,
+            "name": "tree"
         },
         {
             "mesh": "obj",
@@ -18,7 +19,8 @@
             "scale": 5,
             "texture": "texture",
             "mass": 0,
-            "physics": 0
+            "physics": 0,
+            "name": "ground"
         },
         {
             "mesh": "obj",
@@ -28,7 +30,8 @@
             "scale": 1,
             "texture": "texture",
             "mass": 0,
-            "physics": 0
+            "physics": 0,
+            "name": "lightVisualiser"
         }
     ],
 

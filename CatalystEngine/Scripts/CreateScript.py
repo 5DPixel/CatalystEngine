@@ -3,15 +3,16 @@ import os
 name = input("Choose script name: ")
 
 template = f"""
-using System;
+using CatalystEngine.Models;
+using OpenTK.Mathematics;
 
-public class {name} {{
-	public void Start()
+internal static class {name} {{
+	public static void Start()
 	{{
 		//Code that runs when the application starts
 	}}
 
-	public void Update()
+	public static void Update()
 	{{
 		//Code that runs every frame
 	}}

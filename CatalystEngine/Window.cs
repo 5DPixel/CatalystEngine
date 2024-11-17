@@ -2,6 +2,7 @@
 using CatalystEngine.Debug;
 using CatalystEngine.Graphics;
 using CatalystEngine.Models;
+using CatalystEngine.ScriptsCore;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -53,8 +54,10 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
+            ScriptManager.QueueScript(new testing()); //Add scripts to queue
+            ScriptManager.StartAllScripts();
+
             settings = DebugSettings.LoadSettings();
-            Console.WriteLine(settings.LogGameObjectIDs);
 
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
             
@@ -64,6 +67,14 @@ namespace CatalystEngine
             scene.Load();
 
             rb = new Rigidbody(1f, scene.gravity);
+
+            if (settings.LogGameObjectIDs)
+            {
+                foreach (var gameObject in scene.gameObjects)
+                {
+                    Console.WriteLine($"{gameObject.Name} - Name, {gameObject.ID} - ID");
+                }
+            }
 
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
@@ -113,7 +124,6 @@ namespace CatalystEngine
             int viewPosLocation = GL.GetUniformLocation(program.ID, "viewPos");
 
             int ambientStrengthLocation = GL.GetUniformLocation(program.ID, "ambientStrength");
-            int isTextured = GL.GetUniformLocation(program.ID, "isTextured");
 
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
@@ -159,15 +169,18 @@ namespace CatalystEngine
             }
 
             // FPS calculation and buffer swap
-            frameCount++;
-            elapsedTime += args.Time;
-
-            if (elapsedTime >= 1.0) // Every second
+            if (settings.showFPS)
             {
-                fps = frameCount; // Capture the FPS
-                Console.Write($"\rFPS: {fps}"); // Print to console
-                frameCount = 0; // Reset count
-                elapsedTime = 0.0; // Reset elapsed time
+                frameCount++;
+                elapsedTime += args.Time;
+
+                if (elapsedTime >= 1.0) // Every second
+                {
+                    fps = frameCount; // Capture the FPS
+                    Console.Write($"\rFPS: {fps}"); // Print to console
+                    frameCount = 0; // Reset count
+                    elapsedTime = 0.0; // Reset elapsed time
+                }
             }
 
             Context.SwapBuffers();

@@ -14,16 +14,19 @@ namespace CatalystEngine.Debug
                 string json = File.ReadAllText(debugJsonFilePath);
 
                 dynamic debugInfo = JsonConvert.DeserializeObject(json);
+                bool showFPS = false;
                 bool logIDs = false;
 
                 foreach(var setting in debugInfo.settings)
                 {
                     logIDs = setting.logGameObjectIDs;
+                    showFPS = setting.showFPS;
                 }
 
                 settings = new Settings
                 {
-                    LogGameObjectIDs = logIDs
+                    LogGameObjectIDs = logIDs,
+                    showFPS = showFPS
                 };
             }
             catch(Exception)
@@ -36,12 +39,14 @@ namespace CatalystEngine.Debug
 
         public struct Settings
         {
-            public Settings(bool logGameObjectIDs)
+            public Settings(bool logGameObjectIDs, bool showFPSCounter)
             {
                 LogGameObjectIDs = logGameObjectIDs;
+                showFPS = showFPSCounter;
             }
 
             public bool LogGameObjectIDs { get; set; }
+            public bool showFPS { get; set; }
         }
     }
 }

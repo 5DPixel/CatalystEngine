@@ -1,7 +1,8 @@
 {
     "settings": [
         {
-            "logGameObjectIDs": true
+            "logGameObjectIDs": false,
+            "showFPS": true
         }
     ]
 }

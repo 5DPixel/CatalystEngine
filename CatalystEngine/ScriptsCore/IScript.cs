@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatalystEngine.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CatalystEngine.ScriptsCore
 {
-    abstract class GameScript
+    internal interface IScript
     {
-        public abstract void Update();
-        public abstract void Start();
+        void Start();
+        void Update(Mesh currentInstance);
     }
 }

@@ -22,11 +22,6 @@ namespace CatalystEngine.Models
 
             ID = nextID++;
         }
-
-        public virtual void Update()
-        {
-            //Update logic here
-        }
         public abstract void Render(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection);
     }
 }
