@@ -43,7 +43,8 @@
     "settings": [
         {
             "gravity": -9.81, //Default, because Earth's gravity is -9.81m/s^2
-            "ambient": 0.5
+            "ambient": 0.5,
+            "isFreeCamera": true
         }
     ]
 }

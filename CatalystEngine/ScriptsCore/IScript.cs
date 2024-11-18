@@ -10,6 +10,6 @@ namespace CatalystEngine.ScriptsCore
     internal interface IScript
     {
         void Start();
-        void Update(Mesh currentInstance);
+        void ExecuteUpdate(GameObject currentInstance);
     }
 }

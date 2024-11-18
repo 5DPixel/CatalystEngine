@@ -13,6 +13,9 @@ namespace CatalystEngine
         public string name;
 
         public float ambientStrength;
+        public bool isFreeCamera;
+        public float cameraPitch, cameraYaw;
+
         GameObject gameObject;
         public float gravity;
         public float mass;
@@ -71,6 +74,10 @@ namespace CatalystEngine
             {
                 gravity = setting.gravity.ToObject<float>();
                 ambientStrength = setting.ambient.ToObject<float>();
+
+                isFreeCamera = setting.isFreeCamera.ToObject<bool>();
+                cameraPitch = setting.cameraPitch.ToObject<float>();
+                cameraYaw = setting.cameraYaw.ToObject<float>();
             }
 
             // Access the "objects" array and create GameObject instances

@@ -54,7 +54,7 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            ScriptManager.QueueScript(new testing()); //Add scripts to queue
+            ScriptManager.QueueScript(new Testing()); //Add scripts to queue
             ScriptManager.StartAllScripts();
 
             settings = DebugSettings.LoadSettings();
@@ -87,7 +87,13 @@ namespace CatalystEngine
             GL.DepthFunc(DepthFunction.Less);
 
             // Initialize the camera
-            camera = new Camera(width, height, Vector3.Zero);
+            if (scene.isFreeCamera)
+            {
+                camera = new Camera(width, height, Vector3.Zero, true, 0, 0);
+            } else
+            {
+                camera = new Camera(width, height, Vector3.Zero, false, 0, 0);
+            }
             CursorState = CursorState.Grabbed;
         }
 
@@ -198,6 +204,7 @@ namespace CatalystEngine
             {
                 if (gameObject is Mesh mesh)
                 {
+                    ScriptManager.UpdateAllScripts(mesh);
                     if (mesh.physicsType == "rigidbody")
                     {
                         rb.position = mesh.Position;

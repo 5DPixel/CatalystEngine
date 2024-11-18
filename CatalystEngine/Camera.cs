@@ -26,15 +26,19 @@ namespace CatalystEngine
         Vector3 right = Vector3.UnitX;
 
         // view rotations
-        private float pitch;
-        private float yaw = -90.0f;
+        public float pitch;
+        public float yaw;
+        private bool isFreeCamera;
 
         private bool firstMove = true;
         public Vector2 lastPosition;
-        public Camera(float width, float height, Vector3 position) {
+        public Camera(float width, float height, Vector3 position, bool isFreeCamera, float pitch, float yaw) {
             screenWidth = width;
             screenHeight = height;
             this.position = position;
+            this.pitch = pitch;
+            this.yaw = yaw;
+            this.isFreeCamera = isFreeCamera;
         }
         public Matrix4 GetViewMatrix() {
             return Matrix4.LookAt(position, position + front, up);
@@ -107,7 +111,10 @@ namespace CatalystEngine
 
         public void Update(KeyboardState input, MouseState mouse, FrameEventArgs e)
         {
-            InputController(input, mouse, e);
+            if (isFreeCamera)
+            {
+                InputController(input, mouse, e);
+            }
         }
     }
 }

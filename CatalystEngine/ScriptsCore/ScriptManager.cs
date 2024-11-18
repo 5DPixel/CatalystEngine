@@ -33,7 +33,7 @@ namespace CatalystEngine.ScriptsCore
         {
             foreach(IScript script in scripts)
             {
-                script.Update(currentInstance);
+                script.ExecuteUpdate(currentInstance);
             }
         }
     }
