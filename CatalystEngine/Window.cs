@@ -54,9 +54,6 @@ namespace CatalystEngine
         {
             base.OnLoad();
 
-            ScriptManager.QueueScript(new Testing()); //Add scripts to queue
-            ScriptManager.StartAllScripts();
-
             settings = DebugSettings.LoadSettings();
 
             skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
@@ -89,11 +86,17 @@ namespace CatalystEngine
             // Initialize the camera
             if (scene.isFreeCamera)
             {
-                camera = new Camera(width, height, Vector3.Zero, true, 0, 0);
+                camera = new Camera(width, height, scene.cameraPosition, true, scene.cameraPitch, scene.cameraYaw);
             } else
             {
-                camera = new Camera(width, height, Vector3.Zero, false, 0, 0);
+                camera = new Camera(width, height, scene.cameraPosition, false, scene.cameraPitch, scene.cameraYaw);
             }
+
+            Testing t = new Testing();
+            t.currentCamera = camera;
+            ScriptManager.QueueScript(t); //Add scripts to queue
+            ScriptManager.StartAllScripts();
+
             CursorState = CursorState.Grabbed;
         }
 
@@ -204,12 +207,14 @@ namespace CatalystEngine
             {
                 if (gameObject is Mesh mesh)
                 {
-                    ScriptManager.UpdateAllScripts(mesh);
+                    ScriptManager.UpdateAllScripts(gameObject);
                     if (mesh.physicsType == "rigidbody")
                     {
                         rb.position = mesh.Position;
                         mesh.Position = rb.ApplyPhysics((float)args.Time);
                         rb.rigidbodyPoints = mesh.vertices;
+
+                        camera.UpdateVectors();
                     }
                 }
             }

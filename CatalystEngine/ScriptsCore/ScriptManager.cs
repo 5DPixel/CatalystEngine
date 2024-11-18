@@ -29,7 +29,7 @@ namespace CatalystEngine.ScriptsCore
             }
         }
 
-        public static void UpdateAllScripts(Mesh currentInstance)
+        public static void UpdateAllScripts(GameObject currentInstance)
         {
             foreach(IScript script in scripts)
             {

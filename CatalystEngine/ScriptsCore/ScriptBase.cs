@@ -1,5 +1,6 @@
 ﻿using CatalystEngine.Models;
 using CatalystEngine.ScriptsCore;
+using CatalystEngine;
 
 internal abstract class ScriptBase : IScript
 {

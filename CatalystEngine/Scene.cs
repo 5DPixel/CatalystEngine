@@ -15,6 +15,7 @@ namespace CatalystEngine
         public float ambientStrength;
         public bool isFreeCamera;
         public float cameraPitch, cameraYaw;
+        public Vector3 cameraPosition;
 
         GameObject gameObject;
         public float gravity;
@@ -78,6 +79,9 @@ namespace CatalystEngine
                 isFreeCamera = setting.isFreeCamera.ToObject<bool>();
                 cameraPitch = setting.cameraPitch.ToObject<float>();
                 cameraYaw = setting.cameraYaw.ToObject<float>();
+                float[] cameraPositionArr = setting.cameraPosition.ToObject<float[]>();
+
+                cameraPosition = new Vector3(cameraPositionArr[0], cameraPositionArr[1], cameraPositionArr[2]);
             }
 
             // Access the "objects" array and create GameObject instances

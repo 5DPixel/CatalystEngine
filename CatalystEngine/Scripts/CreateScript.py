@@ -5,6 +5,7 @@ name = input("Choose script name: ")
 template = f"""
 using CatalystEngine.Models;
 using OpenTK.Mathematics;
+using CatalystEngine;
 
 [ApplyToName("name")] //Apply logic to GameObject with name x
 internal class {name} : ScriptBase

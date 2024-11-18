@@ -47,7 +47,7 @@ namespace CatalystEngine
             return Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(fov), screenWidth / screenHeight, 0.1f, 100f);
         }
 
-        private void UpdateVectors()
+        public void UpdateVectors()
         {
             if(pitch > 89.0f)
             {
