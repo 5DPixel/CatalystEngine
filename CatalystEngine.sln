@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalystEngine", "CatalystE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalystEngine2D", "CatalystEngine2D\CatalystEngine2D.csproj", "{E2BF8257-AE3B-41DF-9AA8-2E7A673D2672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingGame1", "TestingGame1\TestingGame1.csproj", "{6584A344-0BF3-4CC9-B2BB-7C56DC3E4E3D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{E2BF8257-AE3B-41DF-9AA8-2E7A673D2672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2BF8257-AE3B-41DF-9AA8-2E7A673D2672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2BF8257-AE3B-41DF-9AA8-2E7A673D2672}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6584A344-0BF3-4CC9-B2BB-7C56DC3E4E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6584A344-0BF3-4CC9-B2BB-7C56DC3E4E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6584A344-0BF3-4CC9-B2BB-7C56DC3E4E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6584A344-0BF3-4CC9-B2BB-7C56DC3E4E3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

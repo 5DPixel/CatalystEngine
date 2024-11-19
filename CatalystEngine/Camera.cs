@@ -19,7 +19,7 @@ namespace CatalystEngine
         private float fov = 60.0f;
 
         //position variables
-        public Vector3 position;
+        public Vector3 Position;
 
         Vector3 up = Vector3.UnitY;
         Vector3 front = -Vector3.UnitZ;
@@ -35,13 +35,13 @@ namespace CatalystEngine
         public Camera(float width, float height, Vector3 position, bool isFreeCamera, float pitch, float yaw) {
             screenWidth = width;
             screenHeight = height;
-            this.position = position;
+            this.Position = position;
             this.pitch = pitch;
             this.yaw = yaw;
             this.isFreeCamera = isFreeCamera;
         }
         public Matrix4 GetViewMatrix() {
-            return Matrix4.LookAt(position, position + front, up);
+            return Matrix4.LookAt(Position, Position + front, up);
         }
         public Matrix4 GetProjectionMatrix() {
             return Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(fov), screenWidth / screenHeight, 0.1f, 100f);
@@ -69,28 +69,28 @@ namespace CatalystEngine
         public void InputController(KeyboardState input, MouseState mouse, FrameEventArgs e) {
             if (input.IsKeyDown(Keys.W))
             {
-                position += front * speed * (float)e.Time;
+                Position += front * speed * (float)e.Time;
             }
             if (input.IsKeyDown(Keys.A))
             {
-                position -= right * speed * (float)e.Time;
+                Position -= right * speed * (float)e.Time;
             }
             if (input.IsKeyDown(Keys.S))
             {
-                position -= front * speed * (float)e.Time;
+                Position -= front * speed * (float)e.Time;
             }
             if (input.IsKeyDown(Keys.D))
             {
-                position += right * speed * (float)e.Time;
+                Position += right * speed * (float)e.Time;
             }
 
             if (input.IsKeyDown(Keys.E))
             {
-                position.Y += speed * (float)e.Time;
+                Position.Y += speed * (float)e.Time;
             }
             if (input.IsKeyDown(Keys.Q))
             {
-                position.Y -= speed * (float)e.Time;
+                Position.Y -= speed * (float)e.Time;
             }
 
             if (firstMove)

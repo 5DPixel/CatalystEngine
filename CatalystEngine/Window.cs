@@ -136,7 +136,7 @@ namespace CatalystEngine
 
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
-            GL.Uniform3(viewPosLocation, camera.position.X, camera.position.Y, camera.position.Z);
+            GL.Uniform3(viewPosLocation, camera.Position.X, camera.Position.Y, camera.Position.Z);
 
             GL.Uniform1(ambientStrengthLocation, scene.ambientStrength);
 
