@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,11 @@ namespace CatalystEngine.Utils
         public static long GetEpochSeconds()
         {
             return EpochSeconds;
+        }
+
+        public static async Task Wait(float seconds)
+        {
+            await Task.Delay((int)seconds * 1000);
         }
 
         public static long GetEpochMilliseconds()

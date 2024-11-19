@@ -7,8 +7,10 @@ using CatalystEngine.Utils;
 internal class Testing : ScriptBase
 {
     public Camera currentCamera;
-    public override void Start()
+    public Scene currentScene;
+    public async override void Start()
     {
+        await Time.Wait(1);
         Console.WriteLine("Hello world! This is the first script");
     }
 
@@ -16,6 +18,5 @@ internal class Testing : ScriptBase
     {
         currentInstance.Position = new Vector3(currentInstance.Position.X, currentInstance.Position.Y + 0.001f, currentInstance.Position.Z);
         currentCamera.yaw += 0.01f;
-        Console.WriteLine(Time.GetEpochMilliseconds());
     }
 }

@@ -94,6 +94,7 @@ namespace CatalystEngine
 
             Testing t = new Testing();
             t.currentCamera = camera;
+            t.currentScene = scene;
             ScriptManager.QueueScript(t); //Add scripts to queue
             ScriptManager.StartAllScripts();
 

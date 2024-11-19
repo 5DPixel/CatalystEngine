@@ -3,7 +3,6 @@ using CatalystEngine.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenTK.Mathematics;
-using System.Text.Encodings.Web;
 
 namespace CatalystEngine
 {
