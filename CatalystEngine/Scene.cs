@@ -62,6 +62,22 @@ namespace CatalystEngine
             }
         }
 
+        public void Update()
+        {
+            foreach(GameObject gameObject in gameObjects)
+            {
+                gameObject.Update();
+            }
+        }
+
+        public void Start()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Start();
+            }
+        }
+
         public void Load()
         {
             // Read the JSON file content

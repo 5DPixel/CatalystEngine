@@ -1,4 +1,5 @@
 ﻿using CatalystEngine.Graphics;
+using CatalystEngine.ScriptsCore;
 using OpenTK.Mathematics;
 
 namespace CatalystEngine.Models
@@ -12,6 +13,8 @@ namespace CatalystEngine.Models
         public string physicsType { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
+
+        private List<IScript> _scripts = new List<IScript>();
         private static int nextID = 0;
 
         protected GameObject()
@@ -21,6 +24,34 @@ namespace CatalystEngine.Models
             Scale = 1f;
 
             ID = nextID++;
+        }
+
+        public T AddScript<T>() where T : IScript, new()
+        {
+            T script = new T();
+            _scripts.Add(script);
+            return script;
+        }
+
+        public void Start()
+        {
+            foreach(IScript script in _scripts)
+            {
+                script.Start();
+            }
+        }
+
+        public void Update()
+        {
+            foreach(IScript script in _scripts)
+            {
+                script.Update();
+            }
+        }
+
+        public T GetScript<T>() where T : IScript
+        {
+            return (T)_scripts.Find(script => script is T);
         }
         public abstract void Render(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection);
     }

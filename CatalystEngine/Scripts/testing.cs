@@ -2,21 +2,19 @@ using CatalystEngine.Models;
 using OpenTK.Mathematics;
 using CatalystEngine;
 using CatalystEngine.Utils;
+using CatalystEngine.ScriptsCore;
 
-[ApplyToName("monkey")]
-internal class Testing : ScriptBase
+internal class Testing : IScript
 {
-    public Camera currentCamera;
-    public Scene currentScene;
-    public async override void Start()
+    public async void Start()
     {
         await Time.Wait(1);
         Console.WriteLine("Hello world! This is the first script");
     }
 
-    protected override void Update(GameObject currentInstance)
+    public async void Update()
     {
-        currentInstance.Position = new Vector3(currentInstance.Position.X, currentInstance.Position.Y + 0.001f, currentInstance.Position.Z);
-        currentCamera.yaw += 0.01f;
+        //currentInstance.Position = new Vector3(currentInstance.Position.X, currentInstance.Position.Y + 0.001f, currentInstance.Position.Z);
+        //currentCamera.yaw += 0.01f;
     }
 }

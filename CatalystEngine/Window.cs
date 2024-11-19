@@ -73,6 +73,14 @@ namespace CatalystEngine
                 }
             }
 
+            foreach (var gameObject in scene.gameObjects)
+            {
+                if(gameObject.Name == "monkey")
+                {
+                    gameObject.AddScript<Testing>();
+                }
+            }
+
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
             program = new ShaderProgram("Default.vert", "Default.frag");
@@ -92,13 +100,9 @@ namespace CatalystEngine
                 camera = new Camera(width, height, scene.cameraPosition, false, scene.cameraPitch, scene.cameraYaw);
             }
 
-            Testing t = new Testing();
-            t.currentCamera = camera;
-            t.currentScene = scene;
-            ScriptManager.QueueScript(t); //Add scripts to queue
-            ScriptManager.StartAllScripts();
-
             CursorState = CursorState.Grabbed;
+
+            scene.Start();
         }
 
 
@@ -204,11 +208,12 @@ namespace CatalystEngine
             MouseState mouse = MouseState;
             KeyboardState input = KeyboardState;
 
+            scene.Update();
+
             foreach (var gameObject in scene.gameObjects)
             {
                 if (gameObject is Mesh mesh)
                 {
-                    ScriptManager.UpdateAllScripts(gameObject);
                     if (mesh.physicsType == "rigidbody")
                     {
                         rb.position = mesh.Position;
