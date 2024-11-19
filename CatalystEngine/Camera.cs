@@ -12,11 +12,11 @@ namespace CatalystEngine
     internal class Camera
     {
         //CONSTANTS
-        private float speed = 8f;
+        public float speed = 8f;
         private float screenWidth;
         private float screenHeight;
         private float sensitivity = 180f;
-        private float fov = 60.0f;
+        public float fov = 60.0f;
 
         //position variables
         public Vector3 Position;

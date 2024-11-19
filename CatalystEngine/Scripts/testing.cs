@@ -1,6 +1,7 @@
 using CatalystEngine.Models;
 using OpenTK.Mathematics;
 using CatalystEngine;
+using CatalystEngine.Utils;
 
 [ApplyToName("monkey")]
 internal class Testing : ScriptBase
@@ -15,5 +16,6 @@ internal class Testing : ScriptBase
     {
         currentInstance.Position = new Vector3(currentInstance.Position.X, currentInstance.Position.Y + 0.001f, currentInstance.Position.Z);
         currentCamera.yaw += 0.01f;
+        Console.WriteLine(Time.GetEpochMilliseconds());
     }
 }
