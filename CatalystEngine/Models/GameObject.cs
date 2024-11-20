@@ -30,6 +30,7 @@ namespace CatalystEngine.Models
         {
             T script = new T();
             _scripts.Add(script);
+            script.gameObject = this;
             return script;
         }
 

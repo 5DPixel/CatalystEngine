@@ -9,6 +9,13 @@ namespace CatalystEngine.Utils
 {
     internal static class Time
     {
+        private static float _deltaTime;
+
+        public static float DeltaTime
+        {
+            get => _deltaTime;
+            private set => _deltaTime = value;
+        }
         private static long EpochSeconds
         {
             get
@@ -23,6 +30,19 @@ namespace CatalystEngine.Utils
             {
                 DateTimeOffset now = DateTimeOffset.UtcNow;
                 return now.ToUnixTimeMilliseconds();
+            }
+        }
+
+        public static void SetDeltaTime(float value, object caller)
+        {
+            // Validate that the caller is the allowed class
+            if (caller is Window)
+            {
+                DeltaTime = value;
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("Only SpecificClass can set DeltaTime.");
             }
         }
 

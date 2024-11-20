@@ -58,7 +58,7 @@
         {
             "gravity": -9.81, //Default, because Earth's gravity is -9.81m/s^2
             "ambient": 0.5,
-            "isFreeCamera": false,
+            "isFreeCamera": true,
             "cameraPosition": [ 0, 1, 0 ],
             "cameraPitch": 0,
             "cameraYaw": 0

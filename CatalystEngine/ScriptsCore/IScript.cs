@@ -11,5 +11,7 @@ namespace CatalystEngine.ScriptsCore
     {
         public abstract void Start();
         public abstract void Update();
+
+        public GameObject gameObject { get; set; }
     }
 }

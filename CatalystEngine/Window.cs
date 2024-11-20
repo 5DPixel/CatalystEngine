@@ -8,6 +8,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using CatalystEngine.Utils;
 
 namespace CatalystEngine
 {
@@ -202,6 +203,7 @@ namespace CatalystEngine
         {
             MouseState mouse = MouseState;
             KeyboardState input = KeyboardState;
+            Time.SetDeltaTime((float)args.Time, this);
 
             scene.Update();
 
