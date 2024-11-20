@@ -6,6 +6,7 @@ using CatalystEngine.ScriptsCore;
 
 internal class Testing : IScript
 {
+    float yRot = 0;
     public async override void Start()
     {
         await Time.Wait(1);
@@ -14,10 +15,8 @@ internal class Testing : IScript
 
     public async override void Update()
     {
-        //gameObject.Position = new Vector3(
-            //gameObject.Position.X,
-            //gameObject.Position.Y,
-            //gameObject.Position.Z + 2f * Time.DeltaTime
-        //);
+        yRot += 20f * Time.DeltaTime;
+        gameObject.Rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(0f, yRot, 0f);
+        //gameObject.Rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(gameObject.Rotation.X, gameObject.Rotation.Y + 1f * Time.DeltaTime, gameObject.Rotation.Z);
     }
 }

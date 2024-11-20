@@ -71,9 +71,9 @@ namespace CatalystEngine
                 }
             }
 
-            GameObject _gameObject = scene.FindGameObjectByName("monkey");
+            GameObject _gameObject = scene.FindGameObjectByName("teapot");
             _gameObject.AddScript<Testing>();
-            _gameObject.AddComponent<Rigidbody>();
+            //_gameObject.AddComponent<Rigidbody>();
 
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
