@@ -70,17 +70,6 @@ namespace CatalystEngine.Models
             }
         }
 
-        public void PlayAudioSource()
-        {
-            foreach(Component component in _components)
-            {
-                if(component is AudioSource source)
-                {
-                    source.Play();
-                }
-            }
-        }
-
         public T GetScript<T>() where T : IScript
         {
             return (T)_scripts.Find(script => script is T);
