@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CatalystEngine.ScriptsCore
 {
-    internal interface IScript
+    internal abstract class IScript
     {
-        void Start();
-        void Update();
+        public abstract void Start();
+        public abstract void Update();
     }
 }
