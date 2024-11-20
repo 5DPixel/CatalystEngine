@@ -62,6 +62,14 @@ namespace CatalystEngine.Models
             }
         }
 
+        public void StartComponents()
+        {
+            foreach (Component component in _components)
+            {
+                component.Start();
+            }
+        }
+
         public T GetScript<T>() where T : IScript
         {
             return (T)_scripts.Find(script => script is T);

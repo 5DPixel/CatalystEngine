@@ -12,5 +12,10 @@ namespace CatalystEngine.Components
         public GameObject gameObject;
 
         public abstract void Update();
+
+        public virtual void Start()
+        {
+            //No implementation but not abstract because not all Components will need this method
+        }
     }
 }
