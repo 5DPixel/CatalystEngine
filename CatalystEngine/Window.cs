@@ -67,19 +67,14 @@ namespace CatalystEngine
 
             if (settings.LogGameObjectIDs)
             {
-                foreach (var gameObject in scene.gameObjects)
+                foreach (GameObject gameObject in scene.gameObjects)
                 {
                     Console.WriteLine($"{gameObject.Name} - Name, {gameObject.ID} - ID");
                 }
             }
 
-            foreach (var gameObject in scene.gameObjects)
-            {
-                if(gameObject.Name == "monkey")
-                {
-                    gameObject.AddScript<Testing>();
-                }
-            }
+            GameObject _gameObject = scene.FindGameObjectByName("monkey");
+            _gameObject.AddScript<Testing>();
 
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");

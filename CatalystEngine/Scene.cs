@@ -25,6 +25,8 @@ namespace CatalystEngine
         public List<GameObject> gameObjects = new List<GameObject>();
         public Dictionary<GameObject, string> rigidbodies = new Dictionary<GameObject, string> { };
 
+        private Dictionary<string, GameObject> objectNames = new Dictionary<string, GameObject> { };
+
 
         private Dictionary<string, Texture> textures = new Dictionary<string, Texture>
         {
@@ -78,6 +80,11 @@ namespace CatalystEngine
             }
         }
 
+        public GameObject FindGameObjectByName(string name)
+        {
+            return objectNames[name];
+        }
+
         public void Load()
         {
             // Read the JSON file content
@@ -124,6 +131,8 @@ namespace CatalystEngine
                         // Create the Mesh object using the filePath
                         gameObject = new Mesh(position, texture, filePath, rotation, scale);
                         gameObjects.Add(gameObject);
+
+                        objectNames.Add(name, gameObject);
                     }
                     else
                     {
