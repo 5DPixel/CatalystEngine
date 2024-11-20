@@ -75,6 +75,10 @@ namespace CatalystEngine
             _gameObject.AddScript<Testing>();
             _gameObject.AddComponent<Rigidbody>();
 
+            AudioClip clip = new AudioClip("../../../SFX/testing.wav");
+            _gameObject.AddComponent<AudioSource>();
+            _gameObject.PlayAudioSource();
+
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
             program = new ShaderProgram("Default.vert", "Default.frag");
