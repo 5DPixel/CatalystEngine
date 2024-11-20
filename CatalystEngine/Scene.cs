@@ -69,6 +69,7 @@ namespace CatalystEngine
             foreach(GameObject gameObject in gameObjects)
             {
                 gameObject.Update();
+                gameObject.UpdateComponents();
             }
         }
 

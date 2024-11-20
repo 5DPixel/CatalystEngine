@@ -1,6 +1,7 @@
 ﻿using CatalystEngine.Graphics;
 using CatalystEngine.ScriptsCore;
 using OpenTK.Mathematics;
+using CatalystEngine.Components;
 
 namespace CatalystEngine.Models
 {
@@ -17,6 +18,8 @@ namespace CatalystEngine.Models
         private List<IScript> _scripts = new List<IScript>();
         private static int nextID = 0;
 
+        private List<Component> _components = new List<Component>();
+
         protected GameObject()
         {
             Position = Vector3.Zero;
@@ -31,6 +34,7 @@ namespace CatalystEngine.Models
             T script = new T();
             _scripts.Add(script);
             script.gameObject = this;
+
             return script;
         }
 
@@ -50,9 +54,26 @@ namespace CatalystEngine.Models
             }
         }
 
+        public void UpdateComponents()
+        {
+            foreach (Component component in _components)
+            {
+                component.Update();
+            }
+        }
+
         public T GetScript<T>() where T : IScript
         {
             return (T)_scripts.Find(script => script is T);
+        }
+
+        public T AddComponent<T>() where T : Component, new()
+        {
+            T component = new T();
+            component.gameObject = this;
+            _components.Add(component);
+
+            return component;
         }
         public abstract void Render(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection);
     }

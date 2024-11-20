@@ -25,7 +25,6 @@ namespace CatalystEngine
         private int fps;
         private Vector3 _lightPos;
         private Vector3 _lightColor;
-        private Rigidbody rb;
 
         private DebugSettings.Settings settings;
 
@@ -64,8 +63,6 @@ namespace CatalystEngine
             scene = new Scene(scenePath);
             scene.Load();
 
-            rb = new Rigidbody(1f, scene.gravity);
-
             if (settings.LogGameObjectIDs)
             {
                 foreach (GameObject gameObject in scene.gameObjects)
@@ -76,6 +73,7 @@ namespace CatalystEngine
 
             GameObject _gameObject = scene.FindGameObjectByName("monkey");
             _gameObject.AddScript<Testing>();
+            _gameObject.AddComponent<Rigidbody>();
 
             // Initialize shaders
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
@@ -206,6 +204,7 @@ namespace CatalystEngine
             Time.SetDeltaTime((float)args.Time, this);
 
             scene.Update();
+            camera.UpdateVectors();
 
             foreach (var gameObject in scene.gameObjects)
             {
@@ -213,11 +212,7 @@ namespace CatalystEngine
                 {
                     if (mesh.physicsType == "rigidbody")
                     {
-                        rb.position = mesh.Position;
-                        mesh.Position = rb.ApplyPhysics((float)args.Time);
-                        rb.rigidbodyPoints = mesh.vertices;
-
-                        camera.UpdateVectors();
+                        
                     }
                 }
             }
