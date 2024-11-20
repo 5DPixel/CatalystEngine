@@ -3,6 +3,7 @@ using CatalystEngine.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenTK.Mathematics;
+using CatalystEngine.Utils;
 
 namespace CatalystEngine
 {
@@ -115,7 +116,7 @@ namespace CatalystEngine
                 float[] positionArr = obj.position.ToObject<float[]>();
 
                 float[] rotationArr = obj.rotation.ToObject<float[]>();
-                Quaternion rotation = Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(rotationArr[0]), MathHelper.DegreesToRadians(rotationArr[1]), MathHelper.DegreesToRadians(rotationArr[2]));
+                Quaternion rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(rotationArr[0], rotationArr[1], rotationArr[2]);
                 float scale = obj.scale;
                 string textureName = obj.texture;
 
