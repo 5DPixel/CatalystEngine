@@ -25,10 +25,10 @@ namespace CatalystEngine.Models
         //private Rigidbody body;
 
         public List<Vector2> texCoords;
-        public Mesh(Vector3 position, Texture texture, string filePath, float rotationAngle = 90f, float scale = 1f)
+        public Mesh(Vector3 position, Texture texture, string filePath, OpenTK.Mathematics.Quaternion rotation, float scale = 1f)
         {
             Position = position;
-            Rotation = rotationAngle;
+            Rotation = rotation;
             Scale = scale;
             _Texture = texture;
             FilePath = filePath;
@@ -91,16 +91,14 @@ namespace CatalystEngine.Models
 
         public override void Render(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection)
         {
-            //Console.WriteLine("Indices: " + string.Join(", ", indices));
-            //Console.WriteLine("Vertices: " + string.Join(", ", vertices.Select(v => $"({v.X}, {v.Y}, {v.Z})")));
 
-            Matrix4 model = Matrix4.CreateTranslation(Position); // Position
+            Matrix4 model = Matrix4.CreateTranslation(Position);
 
-            model *= Matrix4.CreateScale(Scale); // Scale around local origin
+            model *= Matrix4.CreateScale(Scale);
 
             model *= Matrix4.CreateTranslation(0f, 0f, 0f); // Move to origin (optional, since it's already at the origin of the vertices)
-            model *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation)); // Rotate around local origin
-            model *= Matrix4.CreateTranslation(Position); // Move back to the original positio
+            model *= Matrix4.CreateFromQuaternion(Rotation);
+            model *= Matrix4.CreateTranslation(Position);
             // Set the uniform matrices
             GL.UniformMatrix4(modelLocation, true, ref model);
             GL.UniformMatrix4(viewLocation, true, ref view);

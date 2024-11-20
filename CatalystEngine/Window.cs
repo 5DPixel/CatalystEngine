@@ -56,7 +56,7 @@ namespace CatalystEngine
 
             settings = DebugSettings.LoadSettings();
 
-            skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", 90f, 1f);
+            skybox = new Mesh(new Vector3(0, 0, 0), new Texture("px.png"), "../../../OBJs/cube.obj", Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(90f), 0, 0), 1f);
             
 
             string scenePath = $"../../../Scenes/{sceneName}.json";

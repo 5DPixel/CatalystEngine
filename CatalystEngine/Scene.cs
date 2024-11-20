@@ -113,7 +113,9 @@ namespace CatalystEngine
                 string mesh = obj.mesh;
                 string light = obj.lightType;
                 float[] positionArr = obj.position.ToObject<float[]>();
-                float rotation = obj.rotation;
+
+                float[] rotationArr = obj.rotation.ToObject<float[]>();
+                Quaternion rotation = Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(rotationArr[0]), MathHelper.DegreesToRadians(rotationArr[1]), MathHelper.DegreesToRadians(rotationArr[2]));
                 float scale = obj.scale;
                 string textureName = obj.texture;
 
