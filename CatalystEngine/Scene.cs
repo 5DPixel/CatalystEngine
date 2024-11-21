@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenTK.Mathematics;
 using CatalystEngine.Utils;
+using CatalystEngine.Components;
 
 namespace CatalystEngine
 {
@@ -24,7 +25,6 @@ namespace CatalystEngine
         public Vector3 lightColor { get; set; }
 
         public List<GameObject> gameObjects = new List<GameObject>();
-        public Dictionary<GameObject, string> rigidbodies = new Dictionary<GameObject, string> { };
 
         private Dictionary<string, GameObject> objectNames = new Dictionary<string, GameObject> { };
 
@@ -37,6 +37,11 @@ namespace CatalystEngine
             { "tree", new Texture("Tree.png") },
             { "brick", new Texture("brick.jpg") },
             { "grass", new Texture("grass.png") },
+        };
+
+        private Dictionary<string, Type> componentRegistry = new Dictionary<string, Type>
+        {
+            { "rigidbody", typeof(Rigidbody) }
         };
 
         public Scene(string filePath)
@@ -80,6 +85,19 @@ namespace CatalystEngine
             {
                 gameObject.Start();
                 gameObject.StartComponents();
+            }
+        }
+
+        public void AddComponentToGameObject(GameObject obj, string componentName)
+        {
+            if (componentRegistry.ContainsKey(componentName))
+            {
+                Type componentType = componentRegistry[componentName];
+                obj.AddComponent(componentType);
+            }
+            else
+            {
+                throw new Exception("Component not found: " + componentName);
             }
         }
 
@@ -127,8 +145,8 @@ namespace CatalystEngine
                 if (mesh == "obj")
                 {
                     string filePath = obj.file.ToString();
-                    string physics = obj.physics.ToString();
-                    mass = obj.mass.ToObject<float>();
+                    string[] components = obj.components.ToObject<string[]>();
+                    Console.WriteLine(string.Join(", ", components));
                     name = obj.name.ToObject<string>();
 
                     if (filePath != null)
@@ -143,10 +161,13 @@ namespace CatalystEngine
                     {
                         Console.WriteLine("File property does not exist.");
                     }
-                    rigidbodies.Add(gameObject, physics);
-                    gameObject.physicsType = physics;
 
                     gameObject.Name = name;
+
+                    foreach (string componentName in components)
+                    {
+                        AddComponentToGameObject(gameObject, componentName);
+                    }
                 }
             }
 

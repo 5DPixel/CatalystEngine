@@ -7,7 +7,7 @@ namespace CatalystEngine.Components
 {
     internal class Rigidbody : Component
     {
-        private float gravity { get; set; }
+        public float gravity { get; set; }
         public List<Vector3> rigidbodyPoints = new List<Vector3>();
         public Vector3 position = Vector3.Zero;
         public Vector3 AngularVelocity;

@@ -15,6 +15,10 @@
     <PackageReference Include="StbImageSharp" Version="2.30.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scenes\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties debug_4debugsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

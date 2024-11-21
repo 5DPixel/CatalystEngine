@@ -84,6 +84,13 @@ namespace CatalystEngine.Models
             return component;
         }
 
+        public void AddComponent(Type componentType)
+        {
+            Component component = (Component)Activator.CreateInstance(componentType);
+            component.gameObject = this;
+            _components.Add(component);
+        }
+
         public T GetComponent<T>() where T : Component
         {
             return (T)_components.Find(component => component is T);

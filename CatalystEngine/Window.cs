@@ -69,7 +69,8 @@ namespace CatalystEngine
 
             GameObject _gameObject = scene.FindGameObjectByName("teapot");
             _gameObject.AddScript<Testing>();
-            _gameObject.AddComponent<Rigidbody>();
+            scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
+            scene.FindGameObjectByName("suzanne").GetComponent<Rigidbody>().gravity = 0f;
             
             // Initialize shaders
             program = new ShaderProgram("Default.vert", "Default.frag");

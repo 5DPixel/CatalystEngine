@@ -6,16 +6,18 @@ template = f"""
 using CatalystEngine.Models;
 using OpenTK.Mathematics;
 using CatalystEngine;
+using CatalystEngine.Utils;
+using CatalystEngine.ScriptsCore;
+using CatalystEngine.Components;
 
-[ApplyToName("name")] //Apply logic to GameObject with name x
-internal class {name} : ScriptBase
+internal class {name} : IScript
 {{
-	public override void Start()
+	public async override void Start()
 	{{
 		//Code that runs when the application starts
 	}}
 
-	protected override void Update(GameObject currentInstance)
+	public async override void Update()
 	{{
 		//Code that runs every frame
 	}}

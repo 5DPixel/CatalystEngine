@@ -10,8 +10,6 @@ internal class Testing : IScript
     //float yRot = 0;
     public async override void Start()
     {
-        await Time.Wait(1);
-        Debug.Log("First script");
         gameObject.GetComponent<Rigidbody>().AngularVelocity = new Vector3(360, 360, 0);
     }
 
