@@ -17,7 +17,7 @@ namespace CatalystEngine.Components
 
         private Vector3 initialPosition;
 
-        public Rigidbody() : this(1f, 0) { } //Note to self that you have to give the component a parameterless constructor to work with AddComponent<T>
+        public Rigidbody() : this(1f, -1f) { } //Note to self that you have to give the component a parameterless constructor to work with AddComponent<T>
 
         public Rigidbody(float mass, float gravity = -9.8f)
         {
