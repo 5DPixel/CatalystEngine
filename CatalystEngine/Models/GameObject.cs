@@ -83,6 +83,11 @@ namespace CatalystEngine.Models
 
             return component;
         }
+
+        public T GetComponent<T>() where T : Component
+        {
+            return (T)_components.Find(component => component is T);
+        }
         public abstract void Render(int modelLocation, int viewLocation, int projectionLocation, Matrix4 view, Matrix4 projection);
     }
 }

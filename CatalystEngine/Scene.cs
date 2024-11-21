@@ -79,6 +79,7 @@ namespace CatalystEngine
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Start();
+                gameObject.StartComponents();
             }
         }
 

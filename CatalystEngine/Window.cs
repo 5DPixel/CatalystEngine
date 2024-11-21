@@ -69,8 +69,7 @@ namespace CatalystEngine
 
             GameObject _gameObject = scene.FindGameObjectByName("teapot");
             _gameObject.AddScript<Testing>();
-            //Rigidbody rb = _gameObject.AddComponent<Rigidbody>();
-            //rb.AngularVelocity = new Vector3(0, 0, 90);
+            _gameObject.AddComponent<Rigidbody>();
             
             // Initialize shaders
             program = new ShaderProgram("Default.vert", "Default.frag");
