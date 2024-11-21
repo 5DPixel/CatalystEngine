@@ -10,13 +10,13 @@ internal class Testing : IScript
     public async override void Start()
     {
         await Time.Wait(1);
-        Console.WriteLine("Hello world! This is the first script");
+        Debug.Log("First script");
     }
 
     public async override void Update()
     {
         yRot += 20f * Time.DeltaTime;
-        gameObject.Rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(0f, yRot, 0f);
+        gameObject.Rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(0, yRot, 0f);
         //gameObject.Rotation = QuaternionHelper.CreateFromEulerAnglesDegrees(gameObject.Rotation.X, gameObject.Rotation.Y + 1f * Time.DeltaTime, gameObject.Rotation.Z);
     }
 }
