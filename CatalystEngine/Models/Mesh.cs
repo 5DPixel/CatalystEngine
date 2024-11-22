@@ -96,7 +96,7 @@ namespace CatalystEngine.Models
 
             model *= Matrix4.CreateScale(Scale);
 
-            model *= Matrix4.CreateTranslation(-Position); // Move to origin (optional, since it's already at the origin of the vertices)
+            model *= Matrix4.CreateTranslation(-Position); // Move to origin
             model *= Matrix4.CreateFromQuaternion(Rotation);
             model *= Matrix4.CreateTranslation(Position);
             // Set the uniform matrices

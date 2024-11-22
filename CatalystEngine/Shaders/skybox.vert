@@ -15,5 +15,5 @@ void main()
 {
 	gl_Position = vec4(_Position, 1.0f) * model * view * projection; //NOTE: MULTIPLICATIVE ORDER DOES MATTER!
 	FragPos = vec3(model * vec4(_Position, 1.0));
-	texCoord = _TexCoord;;
+	texCoord = _TexCoord;
 }
