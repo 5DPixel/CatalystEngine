@@ -12,6 +12,7 @@ uniform vec3 lightColor;
 uniform vec3 viewPos;
 
 uniform float ambientStrength;
+uniform float lightIntensity;
 
 void main()
 {
@@ -38,6 +39,6 @@ void main()
 
 	vec3 texColor = texture(texture0, texCoord).rgb;
 
-	vec3 result = (ambient + diffuse + specular) * texColor;
+	vec3 result = lightIntensity * (ambient + diffuse + specular) * texColor;
 	FragColor = vec4(result, 1.0);
 }

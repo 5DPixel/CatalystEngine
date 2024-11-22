@@ -53,7 +53,7 @@ namespace CatalystEngine
             base.OnLoad();
 
             settings = DebugSettings.LoadSettings();
-            
+
 
             string scenePath = $"../../../Scenes/{sceneName}.json";
             scene = new Scene(scenePath);
@@ -71,7 +71,7 @@ namespace CatalystEngine
             _gameObject.AddScript<Testing>();
             scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
             scene.FindGameObjectByName("suzanne").GetComponent<Rigidbody>().gravity = 0f;
-            
+
             // Initialize shaders
             program = new ShaderProgram("Default.vert", "Default.frag");
 
@@ -85,7 +85,8 @@ namespace CatalystEngine
             if (scene.isFreeCamera)
             {
                 camera = new Camera(width, height, scene.cameraPosition, true, scene.cameraPitch, scene.cameraYaw);
-            } else
+            }
+            else
             {
                 camera = new Camera(width, height, scene.cameraPosition, false, scene.cameraPitch, scene.cameraYaw);
             }
@@ -128,12 +129,14 @@ namespace CatalystEngine
             int viewPosLocation = GL.GetUniformLocation(program.ID, "viewPos");
 
             int ambientStrengthLocation = GL.GetUniformLocation(program.ID, "ambientStrength");
+            int lightIntensityocation = GL.GetUniformLocation(program.ID, "lightIntensity");
 
             GL.Uniform3(lightPosLocation, _lightPos.X, _lightPos.Y, _lightPos.Z);
             GL.Uniform3(lightColorLocation, _lightColor.X, _lightColor.Y, _lightColor.Z);
             GL.Uniform3(viewPosLocation, camera.Position.X, camera.Position.Y, camera.Position.Z);
 
             GL.Uniform1(ambientStrengthLocation, scene.ambientStrength);
+            GL.Uniform1(lightIntensityocation, scene.lightIntensity);
 
             //skyboxProgram.Bind();
 

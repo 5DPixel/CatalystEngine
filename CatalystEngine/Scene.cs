@@ -24,6 +24,8 @@ namespace CatalystEngine
         public Vector3 lightPos { get; set; }
         public Vector3 lightColor { get; set; }
 
+        public float lightIntensity { get; set; }
+
         public List<GameObject> gameObjects = new List<GameObject>();
 
         private Dictionary<string, GameObject> objectNames = new Dictionary<string, GameObject> { };
@@ -182,6 +184,7 @@ namespace CatalystEngine
 
                     lightPos = new Vector3(lightPosArray[0], lightPosArray[1], lightPosArray[2]);
                     lightColor = new Vector3(lightColorArray[0], lightColorArray[1], lightColorArray[2]);
+                    lightIntensity = light.intensity;
                 }
             }
         }
