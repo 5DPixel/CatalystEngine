@@ -14,10 +14,11 @@ namespace CatalystEngine.Components
         private float dampingFactor = 0.3f;
         private float mass { get; set; }
         public Vector3 velocity = Vector3.Zero;
+        private Vector3 _force;
 
         private Vector3 initialPosition;
 
-        public Rigidbody() : this(1f, -1f) { } //Note to self that you have to give the component a parameterless constructor to work with AddComponent<T>
+        public Rigidbody() : this(1f, -9.81f) { } //Note to self that you have to give the component a parameterless constructor to work with generic method AddComponent<T>
 
         public Rigidbody(float mass, float gravity = -9.8f)
         {
@@ -30,11 +31,23 @@ namespace CatalystEngine.Components
             return new Vector3(0, mass * gravity, 0);
         }
 
+        public void AddForce(Vector3 force)
+        {
+            _force = force * 1000;
+        }
+
         public Vector3 ApplyPhysics()
         {
-            Vector3 force = ComputeForce();
+            Vector3 force = ComputeForce() + _force;
+
+            _force = Vector3.Zero;
+
             Vector3 acceleration = force / mass;
             velocity += acceleration * Time.DeltaTime;
+
+            velocity.X *= 1 - 0.8f * Time.DeltaTime;
+            velocity.Z *= 1 - 0.8f * Time.DeltaTime;
+
             position += velocity * Time.DeltaTime;
 
             return position;

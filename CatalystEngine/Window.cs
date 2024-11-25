@@ -74,9 +74,10 @@ namespace CatalystEngine
             GameObject _gameObject = scene.FindGameObjectByName("teapot");
             _gameObject.AddScript<Testing>();
             scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
-            scene.FindGameObjectByName("suzanne").GetComponent<Rigidbody>().gravity = 0f;
+            Rigidbody rb = scene.FindGameObjectByName("suzanne").GetComponent<Rigidbody>();
+            rb.gravity = 0f;
+            rb.AddForce(new Vector3(5, 0, 0));
 
-            // Initialize shaders
             program = new ShaderProgram("Default.vert", "Default.frag");
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
 
@@ -150,17 +151,11 @@ namespace CatalystEngine
 
             Matrix4 skyboxView = camera.GetViewMatrix();
 
-            //skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
-            // Remove translation component for skybox view
-
-            // Set uniforms specific to skybox shader
-            //GL.UniformMatrix4(skyboxModelLocation, false, ref model);
-            //GL.UniformMatrix4(skyboxViewLocation, false, ref skyboxView);
-            //GL.UniformMatrix4(skyboxProjectionLocation, false, ref projection);
-
             skyboxView.M41 = 0.0f;
             skyboxView.M42 = 0.0f;
             skyboxView.M43 = 0.0f;
+
+            GL.Enable(EnableCap.FramebufferSrgb);
 
             GL.Disable(EnableCap.DepthTest);
             skybox.mesh.vao.Bind();
@@ -170,12 +165,7 @@ namespace CatalystEngine
             skybox.mesh.ibo.Bind();
             skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
 
-            GL.Enable(EnableCap.FramebufferSrgb);
-
-
-            // Disable depth testing for the skybox render
-            //skybox.Render(skyboxModelLocation, skyboxViewLocation, skyboxProjectionLocation, skyboxView, projection);
-            GL.Enable(EnableCap.DepthTest); // Re-enable depth testing for main scene
+            GL.Enable(EnableCap.DepthTest);
 
             program.Bind();
             // Render the scene
