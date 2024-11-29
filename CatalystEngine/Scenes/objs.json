@@ -7,17 +7,17 @@
             "rotation": [ 0, 0, 0 ],
             "scale": 1,
             "texture": "stone",
-            "components": [ "rigidbody" ],
+            "components": [],
             "name": "teapot"
         },
         {
             "mesh": "obj",
             "file": "../../../OBJs/suzanne.obj",
-            "position": [ 5, 4, 0 ],
+            "position": [ 3, 4, 0 ],
             "rotation": [ 0, 0, 0 ],
             "scale": 1,
             "texture": "texture",
-            "components": [ "rigidbody" ],
+            "components": [ "rigidbody", "boxCollider" ],
             "name": "suzanne"
         },
         {
@@ -27,7 +27,7 @@
             "rotation": [ 0, 0, 0 ],
             "scale": 5,
             "texture": "brick",
-            "components": [],
+            "components": [ "boxCollider" ],
             "name": "ground"
         }
     ],

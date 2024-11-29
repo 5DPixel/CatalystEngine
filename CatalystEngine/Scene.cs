@@ -43,7 +43,7 @@ namespace CatalystEngine
 
         private Dictionary<string, Type> componentRegistry = new Dictionary<string, Type>
         {
-            { "rigidbody", typeof(Rigidbody) }
+            { "rigidbody", typeof(Rigidbody) },
         };
 
         public Scene(string filePath)
@@ -148,7 +148,6 @@ namespace CatalystEngine
                 {
                     string filePath = obj.file.ToString();
                     string[] components = obj.components.ToObject<string[]>();
-                    Console.WriteLine(string.Join(", ", components));
                     name = obj.name.ToObject<string>();
 
                     if (filePath != null)

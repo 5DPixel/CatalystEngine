@@ -11,7 +11,6 @@ namespace CatalystEngine.Models
         public Quaternion Rotation { get; set; }
         public float Scale { get; set; }
         public Texture _Texture { get; set; }
-        public string physicsType { get; set; }
         public string Name { get; set; }
         public int ID { get; set; }
 

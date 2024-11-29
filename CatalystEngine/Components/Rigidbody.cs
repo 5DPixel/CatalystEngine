@@ -2,13 +2,14 @@
 using OpenTK.Mathematics;
 using CatalystEngine.Utils;
 using CatalystEngine.Models;
+using CatalystEngine.Physics;
 
 namespace CatalystEngine.Components
 {
     internal class Rigidbody : Component
     {
         public float gravity { get; set; }
-        public List<Vector3> rigidbodyPoints = new List<Vector3>();
+        public List<Vector3> rigidbodyPoints;
         public Vector3 position = Vector3.Zero;
         public Vector3 AngularVelocity;
         private float dampingFactor = 0.3f;
@@ -16,7 +17,10 @@ namespace CatalystEngine.Components
         public Vector3 velocity = Vector3.Zero;
         private Vector3 _force;
 
+        private float restitution = 0.8f;
+
         private Vector3 initialPosition;
+        private BoxCollider collider;
 
         public Rigidbody() : this(1f, -9.81f) { } //Note to self that you have to give the component a parameterless constructor to work with generic method AddComponent<T>
 
@@ -45,9 +49,14 @@ namespace CatalystEngine.Components
             Vector3 acceleration = force / mass;
             velocity += acceleration * Time.DeltaTime;
 
-            velocity.X *= 1 - 0.8f * Time.DeltaTime;
-            velocity.Z *= 1 - 0.8f * Time.DeltaTime;
+            velocity.X *= 1 - dampingFactor * Time.DeltaTime;
+            velocity.Z *= 1 - dampingFactor * Time.DeltaTime;
 
+            if (position.Y < -4.7f)
+            {
+                position.Y = -4.7f;
+                velocity.Y = -velocity.Y * restitution;
+            }
             position += velocity * Time.DeltaTime;
 
             return position;
@@ -72,6 +81,7 @@ namespace CatalystEngine.Components
 
         public override void Start()
         {
+            collider = gameObject.GetComponent<BoxCollider>();
             initialPosition = gameObject.Position;
         }
 

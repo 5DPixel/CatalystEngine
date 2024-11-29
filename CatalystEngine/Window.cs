@@ -30,6 +30,10 @@ namespace CatalystEngine
 
         private ShaderProgram skyboxProgram;
 
+        private Rigidbody rb2;
+        private Mesh t;
+        private Mesh t2;
+
         //Camera
         Camera camera;
 
@@ -71,12 +75,13 @@ namespace CatalystEngine
                 }
             }
 
-            GameObject _gameObject = scene.FindGameObjectByName("teapot");
-            _gameObject.AddScript<Testing>();
+            //GameObject _gameObject = scene.FindGameObjectByName("teapot");
+            //_gameObject.AddScript<Testing>();
             scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
-            Rigidbody rb = scene.FindGameObjectByName("suzanne").GetComponent<Rigidbody>();
-            rb.gravity = 0f;
-            rb.AddForce(new Vector3(5, 0, 0));
+            //Rigidbody rb = scene.FindGameObjectByName("teapot").GetComponent<Rigidbody>();
+            //rb.gravity = 0f;
+            t = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/suzanne.obj", Quaternion.Identity, 1f);
+            t2 = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/plane.obj", Quaternion.Identity, 1f);
 
             program = new ShaderProgram("Default.vert", "Default.frag");
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
