@@ -17,7 +17,7 @@
             "rotation": [ 0, 0, 0 ],
             "scale": 1,
             "texture": "texture",
-            "components": [ "rigidbody", "boxCollider" ],
+            "components": [ "rigidbody" ],
             "name": "suzanne"
         },
         {
@@ -27,7 +27,7 @@
             "rotation": [ 0, 0, 0 ],
             "scale": 5,
             "texture": "brick",
-            "components": [ "boxCollider" ],
+            "components": [],
             "name": "ground"
         }
     ],

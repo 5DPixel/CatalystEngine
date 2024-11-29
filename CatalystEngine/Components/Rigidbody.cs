@@ -79,7 +79,6 @@ namespace CatalystEngine.Components
 
         public override void Start()
         {
-            collider = gameObject.GetComponent<BoxCollider>();
             initialPosition = gameObject.Position;
         }
 
