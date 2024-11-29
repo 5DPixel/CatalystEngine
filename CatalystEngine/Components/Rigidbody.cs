@@ -2,7 +2,6 @@
 using OpenTK.Mathematics;
 using CatalystEngine.Utils;
 using CatalystEngine.Models;
-using CatalystEngine.Physics;
 
 namespace CatalystEngine.Components
 {
@@ -20,7 +19,6 @@ namespace CatalystEngine.Components
         private float restitution = 0.8f;
 
         private Vector3 initialPosition;
-        private BoxCollider collider;
 
         public Rigidbody() : this(1f, -9.81f) { } //Note to self that you have to give the component a parameterless constructor to work with generic method AddComponent<T>
 
