@@ -83,6 +83,8 @@ namespace CatalystEngine
             t = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/suzanne.obj", Quaternion.Identity, 1f);
             t2 = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/plane.obj", Quaternion.Identity, 1f);
 
+            //scene.FindGameObjectByName("suzanne").GetComponent<BoxCollider>().ColliderVertices = t.vertices;
+
             program = new ShaderProgram("Default.vert", "Default.frag");
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
 
@@ -105,6 +107,8 @@ namespace CatalystEngine
             skybox = new Skybox(new Texture("px.png"));
 
             CursorState = CursorState.Grabbed;
+
+            //Console.WriteLine(string.Join(" ", scene.FindAllComponentOfType<Rigidbody>()));
 
             scene.Start();
         }

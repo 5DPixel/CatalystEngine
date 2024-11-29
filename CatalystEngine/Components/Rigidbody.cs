@@ -86,7 +86,7 @@ namespace CatalystEngine.Components
         {
             gameObject.Position = ApplyPhysics() + initialPosition;
 
-            if(AngularVelocity != Vector3.Zero)
+            if (AngularVelocity != Vector3.Zero)
             {
                 ApplyAngularDamping();
                 gameObject.Rotation = UpdateAngularMotion();

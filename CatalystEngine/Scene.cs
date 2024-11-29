@@ -43,7 +43,7 @@ namespace CatalystEngine
 
         private Dictionary<string, Type> componentRegistry = new Dictionary<string, Type>
         {
-            { "rigidbody", typeof(Rigidbody) },
+            { "rigidbody", typeof(Rigidbody) }
         };
 
         public Scene(string filePath)
@@ -106,6 +106,23 @@ namespace CatalystEngine
         public GameObject FindGameObjectByName(string name)
         {
             return objectNames[name];
+        }
+
+        public List<Component>? FindAllComponentOfType<T>() where T : Component
+        {
+            List<Component> components = new List<Component>();
+            foreach(GameObject gameObject in gameObjects)
+            {
+                if(gameObject.GetComponent<T> == null)
+                {
+                    return null;
+                } else
+                {
+                    components.Add(gameObject.GetComponent<T>());
+                }
+            }
+
+            return components;
         }
 
         public void Load()
