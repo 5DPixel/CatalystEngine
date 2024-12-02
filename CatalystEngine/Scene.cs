@@ -43,7 +43,8 @@ namespace CatalystEngine
 
         private Dictionary<string, Type> componentRegistry = new Dictionary<string, Type>
         {
-            { "rigidbody", typeof(Rigidbody) }
+            { "rigidbody", typeof(Rigidbody) },
+            { "sphereCollider", typeof(SphereCollider) }
         };
 
         public Scene(string filePath)
