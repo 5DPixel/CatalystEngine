@@ -128,7 +128,7 @@ namespace CatalystEngine
             GL.ClearColor(new Color4(0.6f, 0.3f, 1f, 1f));
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            // Set transformation matrices for your scene
+            // Set transformation matrices
             Matrix4 model = Matrix4.Identity;
             Matrix4 view = camera.GetViewMatrix();
             Matrix4 projection = camera.GetProjectionMatrix();
