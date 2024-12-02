@@ -50,7 +50,6 @@ namespace CatalystEngine
         {
             this.filePath = filePath;
         }
-
         public void Destroy(int ID)
         {
             if(ID >= 0 && ID < gameObjects.Count)

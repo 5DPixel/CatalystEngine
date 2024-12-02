@@ -78,12 +78,10 @@ namespace CatalystEngine
             //GameObject _gameObject = scene.FindGameObjectByName("teapot");
             //_gameObject.AddScript<Testing>();
             scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
+
+            scene.FindGameObjectByName("ground").GetComponent<SphereCollider>().radius = 2.5f;
             //Rigidbody rb = scene.FindGameObjectByName("teapot").GetComponent<Rigidbody>();
             //rb.gravity = 0f;
-            t = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/suzanne.obj", Quaternion.Identity, 1f);
-            t2 = new Mesh(new Vector3(0, 0, 0), new Texture("brick.jpg"), "../../../OBJs/plane.obj", Quaternion.Identity, 1f);
-
-            //scene.FindGameObjectByName("suzanne").GetComponent<BoxCollider>().ColliderVertices = t.vertices;
 
             program = new ShaderProgram("Default.vert", "Default.frag");
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
@@ -107,6 +105,16 @@ namespace CatalystEngine
             skybox = new Skybox(new Texture("px.png"));
 
             CursorState = CursorState.Grabbed;
+
+            var colliders = scene.FindAllComponentOfType<SphereCollider>();
+
+            foreach (Rigidbody rigidbody in scene.FindAllComponentOfType<Rigidbody>())
+            {
+                if (rigidbody != null)
+                {
+                    rigidbody.colliders = colliders;
+                }
+            }
 
             //Console.WriteLine(string.Join(" ", scene.FindAllComponentOfType<Rigidbody>()));
 
@@ -177,7 +185,7 @@ namespace CatalystEngine
             GL.Enable(EnableCap.DepthTest);
 
             program.Bind();
-            // Render the scene
+            // Render scene
             foreach (var gameObject in scene.gameObjects)
             {
                 if (gameObject is Mesh mesh)
@@ -191,18 +199,18 @@ namespace CatalystEngine
                 }
             }
 
-            // FPS calculation and buffer swap
+
             if (settings.showFPS)
             {
                 frameCount++;
                 elapsedTime += args.Time;
 
-                if (elapsedTime >= 1.0) // Every second
+                if (elapsedTime >= 1.0)
                 {
-                    fps = frameCount; // Capture the FPS
-                    Console.Write($"\rFPS: {fps}"); // Print to console
-                    frameCount = 0; // Reset count
-                    elapsedTime = 0.0; // Reset elapsed time
+                    fps = frameCount;
+                    Console.Write($"\rFPS: {fps}");
+                    frameCount = 0;
+                    elapsedTime = 0.0;
                 }
             }
 
@@ -220,6 +228,7 @@ namespace CatalystEngine
 
             scene.Update();
             camera.UpdateVectors();
+
 
             base.OnUpdateFrame(args);
 

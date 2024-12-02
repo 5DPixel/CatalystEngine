@@ -8,7 +8,6 @@ namespace CatalystEngine.Components
     internal class Rigidbody : Component
     {
         public float gravity { get; set; }
-        public List<Vector3> rigidbodyPoints;
         public Vector3 position = Vector3.Zero;
         public Vector3 AngularVelocity;
         private float dampingFactor = 0.3f;
@@ -17,6 +16,7 @@ namespace CatalystEngine.Components
         private Vector3 _force;
 
         private float restitution = 0.8f;
+        public List<Component> colliders = new List<Component>();
 
         private Vector3 initialPosition;
 
@@ -41,20 +41,27 @@ namespace CatalystEngine.Components
         public Vector3 ApplyPhysics()
         {
             Vector3 force = ComputeForce() + _force;
-
             _force = Vector3.Zero;
-
             Vector3 acceleration = force / mass;
             velocity += acceleration * Time.DeltaTime;
 
             velocity.X *= 1 - dampingFactor * Time.DeltaTime;
             velocity.Z *= 1 - dampingFactor * Time.DeltaTime;
 
-            if (position.Y < -4.7f)
+            foreach(SphereCollider collider in colliders)
             {
-                position.Y = -4.7f;
-                velocity.Y = -velocity.Y * restitution;
+                if (collider != null && collider != gameObject.GetComponent<SphereCollider>() && SphereCollider.CheckIntersection(gameObject.GetComponent<SphereCollider>(), collider))
+                {
+                    position.Y += collider.radius;
+                    velocity.Y = -velocity.Y * restitution;
+                }
             }
+
+            //if (other != null && SphereCollider.CheckIntersection(gameObject.GetComponent<SphereCollider>(), other.GetComponent<SphereCollider>()))
+            //{
+            //position.Y += other.GetComponent<SphereCollider>().radius;
+            //velocity.Y = -velocity.Y * restitution;
+            //}
             position += velocity * Time.DeltaTime;
 
             return position;
