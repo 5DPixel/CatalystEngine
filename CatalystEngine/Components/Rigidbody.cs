@@ -48,11 +48,13 @@ namespace CatalystEngine.Components
             velocity.X *= 1 - dampingFactor * Time.DeltaTime;
             velocity.Z *= 1 - dampingFactor * Time.DeltaTime;
 
+            float currentY = position.Y;
+
             foreach(SphereCollider collider in colliders)
             {
                 if (collider != null && collider != gameObject.GetComponent<SphereCollider>() && SphereCollider.CheckIntersection(gameObject.GetComponent<SphereCollider>(), collider))
                 {
-                    position.Y += collider.radius;
+                    position.Y = currentY;
                     velocity.Y = -velocity.Y * restitution;
                 }
             }
