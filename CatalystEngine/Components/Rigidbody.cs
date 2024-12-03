@@ -43,10 +43,10 @@ namespace CatalystEngine.Components
             Vector3 force = ComputeForce() + _force;
             _force = Vector3.Zero;
             Vector3 acceleration = force / mass;
-            velocity += acceleration * Time.DeltaTime;
+            velocity += acceleration * Time.FixedDeltaTime;
 
-            velocity.X *= 1 - dampingFactor * Time.DeltaTime;
-            velocity.Z *= 1 - dampingFactor * Time.DeltaTime;
+            velocity.X *= 1 - dampingFactor * Time.FixedDeltaTime;
+            velocity.Z *= 1 - dampingFactor * Time.FixedDeltaTime;
 
             float currentY = position.Y;
 
@@ -58,13 +58,7 @@ namespace CatalystEngine.Components
                     velocity.Y = -velocity.Y * restitution;
                 }
             }
-
-            //if (other != null && SphereCollider.CheckIntersection(gameObject.GetComponent<SphereCollider>(), other.GetComponent<SphereCollider>()))
-            //{
-            //position.Y += other.GetComponent<SphereCollider>().radius;
-            //velocity.Y = -velocity.Y * restitution;
-            //}
-            position += velocity * Time.DeltaTime;
+            position += velocity * Time.FixedDeltaTime;
 
             return position;
         }
@@ -73,7 +67,7 @@ namespace CatalystEngine.Components
         {
             Vector3 angularVelocityRadians = AngularVelocity * MathF.PI / 180;
 
-            float angle = angularVelocityRadians.Length * Time.DeltaTime;
+            float angle = angularVelocityRadians.Length * Time.FixedDeltaTime;
             Vector3 axis = angularVelocityRadians.Normalized();
 
             Quaternion deltaRotation = Quaternion.FromAxisAngle(axis, angle);
@@ -83,7 +77,7 @@ namespace CatalystEngine.Components
 
         public void ApplyAngularDamping()
         {
-            AngularVelocity *= (1 - dampingFactor * Time.DeltaTime);
+            AngularVelocity *= (1 - dampingFactor * Time.FixedDeltaTime);
         }
 
         public override void Start()
@@ -91,7 +85,7 @@ namespace CatalystEngine.Components
             initialPosition = gameObject.Position;
         }
 
-        public override void Update()
+        public override void FixedUpdate()
         {
             gameObject.Position = ApplyPhysics() + initialPosition;
 
@@ -100,6 +94,11 @@ namespace CatalystEngine.Components
                 ApplyAngularDamping();
                 gameObject.Rotation = UpdateAngularMotion();
             }
+        }
+
+        public override void Update()
+        {
+
         }
     }
 }

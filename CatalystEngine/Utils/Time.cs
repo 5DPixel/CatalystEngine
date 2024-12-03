@@ -17,6 +17,8 @@ namespace CatalystEngine.Utils
             get => _deltaTime;
             private set => _deltaTime = value;
         }
+
+        public static float FixedDeltaTime = 0.066f; //Interval between physics steps
         private static long EpochSeconds
         {
             get

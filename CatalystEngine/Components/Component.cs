@@ -17,5 +17,10 @@ namespace CatalystEngine.Components
         {
             //No implementation but not abstract because not all Components will need this method
         }
+
+        public virtual void FixedUpdate()
+        {
+
+        }
     }
 }

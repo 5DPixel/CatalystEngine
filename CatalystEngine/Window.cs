@@ -219,12 +219,21 @@ namespace CatalystEngine
         }
 
 
-
+        float accumulatedTime;
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             MouseState mouse = MouseState;
             KeyboardState input = KeyboardState;
             Time.SetDeltaTime((float)args.Time, this);
+            //Console.WriteLine(Time.DeltaTime);
+
+            accumulatedTime += Time.DeltaTime;
+
+            while(accumulatedTime >= Time.FixedDeltaTime)
+            {
+                scene.FixedUpdate();
+                accumulatedTime -= Time.FixedDeltaTime;
+            }
 
             scene.Update();
             camera.UpdateVectors();

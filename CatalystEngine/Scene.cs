@@ -81,6 +81,15 @@ namespace CatalystEngine
             }
         }
 
+        public void FixedUpdate()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                //gameObject.Update();
+                gameObject.FixedUpdateComponents();
+            }
+        }
+
         public void Start()
         {
             foreach (GameObject gameObject in gameObjects)

@@ -61,6 +61,14 @@ namespace CatalystEngine.Models
             }
         }
 
+        public void FixedUpdateComponents()
+        {
+            foreach (Component component in _components)
+            {
+                component.FixedUpdate();
+            }
+        }
+
         public void StartComponents()
         {
             foreach (Component component in _components)
