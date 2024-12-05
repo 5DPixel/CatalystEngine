@@ -155,7 +155,6 @@ namespace CatalystEngine
                 cameraPosition = new Vector3(cameraPositionArr[0], cameraPositionArr[1], cameraPositionArr[2]);
             }
 
-            // Access the "objects" array and create GameObject instances
             foreach (var obj in sceneData.objects)
             {
                 string mesh = obj.mesh;

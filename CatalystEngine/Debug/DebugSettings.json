@@ -2,7 +2,8 @@
     "settings": [
         {
             "logGameObjectIDs": false,
-            "showFPS": true
+            "showFPS": true,
+            "wireframeMode": false
         }
     ]
 }

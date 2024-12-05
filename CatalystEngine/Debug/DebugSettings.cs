@@ -16,17 +16,20 @@ namespace CatalystEngine.Debug
                 dynamic debugInfo = JsonConvert.DeserializeObject(json);
                 bool showFPS = false;
                 bool logIDs = false;
+                bool wireframeMode = false;
 
                 foreach(var setting in debugInfo.settings)
                 {
                     logIDs = setting.logGameObjectIDs;
                     showFPS = setting.showFPS;
+                    wireframeMode = setting.wireframeMode;
                 }
 
                 settings = new Settings
                 {
                     LogGameObjectIDs = logIDs,
-                    showFPS = showFPS
+                    showFPS = showFPS,
+                    wireframeMode = wireframeMode
                 };
             }
             catch(Exception)
@@ -39,14 +42,17 @@ namespace CatalystEngine.Debug
 
         public struct Settings
         {
-            public Settings(bool logGameObjectIDs, bool showFPSCounter)
+            public Settings(bool logGameObjectIDs, bool showFPSCounter, bool _wireframeMode)
             {
                 LogGameObjectIDs = logGameObjectIDs;
                 showFPS = showFPSCounter;
+                wireframeMode = _wireframeMode;
             }
 
             public bool LogGameObjectIDs { get; set; }
             public bool showFPS { get; set; }
+
+            public bool wireframeMode { get; set; }
         }
     }
 }

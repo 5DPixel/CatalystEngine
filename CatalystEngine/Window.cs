@@ -75,13 +75,16 @@ namespace CatalystEngine
                 }
             }
 
-            //GameObject _gameObject = scene.FindGameObjectByName("teapot");
-            //_gameObject.AddScript<Testing>();
+            if (settings.wireframeMode)
+            {
+                GL.LineWidth(6.0f);
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            }
+
             scene.FindGameObjectByName("suzanne").AddScript<Testing2>();
+            scene.FindGameObjectByName("ground").AddScript<Spinning>();
 
             scene.FindGameObjectByName("ground").GetComponent<SphereCollider>().radius = 2.5f;
-            //Rigidbody rb = scene.FindGameObjectByName("teapot").GetComponent<Rigidbody>();
-            //rb.gravity = 0f;
 
             program = new ShaderProgram("Default.vert", "Default.frag");
             skyboxProgram = new ShaderProgram("skybox.vert", "skybox.frag");
